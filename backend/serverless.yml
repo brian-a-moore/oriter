@@ -1,0 +1,22 @@
+service: oriter-backend
+
+plugins:
+  - serverless-bundle
+
+custom:
+  bundle:
+    sourcemaps: true
+    caching: true
+    stats: false
+    linting: false
+    packager: 'npm'
+    targets:
+      - node
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  handleFormSubmission:
+    handler: src/handlers/index.handler

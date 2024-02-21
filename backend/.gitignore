@@ -1,0 +1,14 @@
+# Dependencies
+node_modules
+
+# macOS
+.DS_Store
+*.pem
+
+# Packages
+coverage
+cache
+dist
+
+# Serverless
+.serverless
