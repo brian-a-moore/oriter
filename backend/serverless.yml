@@ -16,7 +16,9 @@ custom:
 provider:
   name: aws
   runtime: nodejs14.x
-  role: arn:aws:iam::204684095875:role/ServerlessFrameworkIAMRole
+  profile: oriter
+  iam:
+    role: arn:aws:iam::204684095875:role/ServerlessFrameworkIAMRole
 
 functions:
   handleFormSubmission:
