@@ -33,7 +33,7 @@ export const submitRequest = masterForm;
 export const verifyFormLinkRequest = Joi.object({
   funeralHomeCode: Joi.string().min(7).max(7).required(),
   customerId: Joi.string().uuid().required(),
-  requestId: Joi.string().uuid().required(),
+  responseId: Joi.string().uuid().required(),
 }).options({ stripUnknown: true });
 
 export const verifyTokenRequest = Joi.object({
