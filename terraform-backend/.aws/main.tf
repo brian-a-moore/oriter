@@ -4,6 +4,13 @@ provider "aws" {
   region  = "us-east-1"
 }
 
+# ARCHIVE
+data "archive_file" "oriter_code" {
+  type        = "zip"
+  source_file = "../oriter_code.zip"
+  output_path = "../oriter_code.zip"
+}
+
 # DYNAMODB
 resource "aws_dynamodb_table" "oriter_database" {
   name           = "oriter_database"
@@ -91,9 +98,9 @@ resource "aws_lambda_function" "oriter_form_submission" {
   handler       = "dist/index.handlerMiddleware"
   runtime       = "nodejs18.x"
   role          = aws_iam_role.lambda_role.arn
-
   s3_bucket = aws_s3_bucket.oriter_lambda_code.bucket
   s3_key    = "oriter_code.zip"
+  source_code_hash = filebase64sha256(data.archive_file.oriter_code.output_path)
 
   depends_on = [aws_s3_bucket_object.object]
 }
