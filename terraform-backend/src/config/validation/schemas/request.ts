@@ -15,12 +15,12 @@ export const loginRequest = Joi.object({
 
 export const registerRequest = Joi.object({
   addressLine1: longStr,
-  addressLine2: shortStr,
+  addressLine2: shortStr.optional(),
   city: shortStr,
   state: Joi.string()
     .min(2)
     .max(2)
-    .valid(...STATES).required,
+    .valid(...STATES).required(),
   email,
   funeralHomeName: longStr,
   primaryContactFirstName: shortStr,
