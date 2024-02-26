@@ -20,6 +20,6 @@ export default async (event: APIGatewayProxyEvent) => {
     return { statusCode: 200, body: JSON.stringify({ message: '/REGISTER Success' }) };
   } catch (e: any | unknown) {
     console.error(e);
-    return { statusCode: 500, body: JSON.stringify({ message: '/REGISTER Error' }) };
+    return { statusCode: 500, body: JSON.stringify({ error: '/REGISTER Error' }) };
   }
 };
