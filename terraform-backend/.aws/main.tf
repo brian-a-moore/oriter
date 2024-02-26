@@ -46,6 +46,7 @@ resource "aws_s3_bucket_object" "object" {
   bucket = "oriter-lambda-code"
   key    = "oriter_code.zip"
   source = "../oriter_code.zip"
+  etag   = filemd5("../oriter_code.zip")
 }
 
 # IAM

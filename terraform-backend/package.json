@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "package": "zip -r oriter_code.zip dist",
+    "package": "cd dist npm install --production && zip -r oriter_code.zip .",
     "deploy": "npm run build && npm run package && cd .aws && terraform apply",
     "typecheck": "tsc --noEmit",
     "lint": "npx eslint .eslintrc --quiet --fix",
