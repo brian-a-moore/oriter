@@ -2,6 +2,7 @@ import { APIGatewayProxyEvent, Context } from 'aws-lambda';
 import * as routes from './routes';
 import schemaValidatorMiddleware from './config/validation';
 import {
+  addCustomerRequest,
   loginRequest,
   registerRequest,
   submitRequest,
@@ -9,8 +10,9 @@ import {
   verifyTokenRequest,
 } from './config/validation/schemas/request';
 import Joi from 'joi';
+import { ApiResponse } from './config/types';
 
-export const handler = async (event: APIGatewayProxyEvent, context: Context) => {
+export const handler = async (event: APIGatewayProxyEvent, context: Context): Promise<ApiResponse> => {
   if (event.body) {
     event.body = JSON.parse(event.body);
   }
@@ -21,6 +23,12 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
 
   try {
     switch (route) {
+      case 'POST /addCustomer':
+        await schemaValidatorMiddleware(event, addCustomerRequest);
+        return routes.addCustomer(event, context);
+      case 'POST /generateLink':
+        await schemaValidatorMiddleware(event, generateLinkRequest);
+        return routes.generateRequest(event, context);  
       case 'POST /login':
         await schemaValidatorMiddleware(event, loginRequest);
         return routes.login(event, context);

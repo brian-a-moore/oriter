@@ -136,7 +136,7 @@ export type MasterForm = {
   service: FormService;
 };
 
-export type ResponseRecord = {
+export type FilteredMasterForm = {
   bio: Omit<FormBio, 'images'>;
   education: FormEducation;
   employment: FormEmployment;

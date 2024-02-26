@@ -1,4 +1,4 @@
-import { Schema } from "dynamoose";
+import { Schema } from 'dynamoose';
 
 const employerSchema = new Schema({
   id: { type: String, required: true },
