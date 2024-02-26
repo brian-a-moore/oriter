@@ -6,7 +6,13 @@ export default async (event: APIGatewayProxyEvent) => {
   try {
     const body = JSON.parse(event.body || '') as RegisterRequest;
 
-    const funeralHomeCode = `${body.funeralHomeName.substring(0, 3).toUpperCase()}-${body.city.charAt(0)}${body.state}`;
+    let funeralHomeCode; 
+
+    try {
+      funeralHomeCode = `${body.funeralHomeName.substring(0, 3).toUpperCase()}-${body.city.charAt(0)}${body.state}`;
+    } catch (e: any | unknown) {
+      console.error('code error', e.message);
+    }
 
     const funeralHome = new FuneralHome({
       ...body,
