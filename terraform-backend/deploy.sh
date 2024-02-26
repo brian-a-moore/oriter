@@ -6,7 +6,7 @@ echo "Deploy starting..."
 npm run build
 
 # Run the deploy command
-cd .aws && terraform apply
+cd .aws && terraform apply -auto-approve
 
 # Go back to the project root directory
 cd ..

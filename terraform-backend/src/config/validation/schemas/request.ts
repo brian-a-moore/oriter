@@ -20,7 +20,8 @@ export const registerRequest = Joi.object({
   state: Joi.string()
     .min(2)
     .max(2)
-    .valid(...STATES).required(),
+    .valid(...STATES)
+    .required(),
   email,
   funeralHomeName: longStr,
   primaryContactFirstName: shortStr,

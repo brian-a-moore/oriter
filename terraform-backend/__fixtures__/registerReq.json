@@ -1,10 +1,10 @@
 {
-    "addressLine1": "100 Main St",
-    "city": "Townville",
-    "state": "VA",
-    "email": "foobar@gmail.com",
-    "funeralHomeName": "Funeral Home Name",
-    "primaryContactFirstName": "John",
-    "primaryContactLastName": "Smith",
-    "primaryContactPhoneNumber": "9998887777"
+  "addressLine1": "100 Main St",
+  "city": "Townville",
+  "state": "VA",
+  "email": "foobar@gmail.com",
+  "funeralHomeName": "Funeral Home Name",
+  "primaryContactFirstName": "John",
+  "primaryContactLastName": "Smith",
+  "primaryContactPhoneNumber": "9998887777"
 }
