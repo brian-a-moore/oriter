@@ -75,13 +75,9 @@ export type VerifyTokenResponse = {
   funeralHomeName: string;
 };
 
-export type ApiResponse<D = any> = {
+export type ApiResponse = {
   statusCode: number;
-  body: {
-    data?: D;
-    message?: string;
-    error?: string;
-  };
+  body: string;
 };
 
 export type FuneralHomeRecord = {

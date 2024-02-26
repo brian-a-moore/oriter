@@ -1,7 +1,8 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { FuneralHome } from '../config/db';
 import crypto from 'crypto';
-import { ApiResponse, FuneralHomeRecord, RegisterRequest } from '../config/types';
+import { ApiResponse, FuneralHomeRecord, RegisterRequest, RegisterResponse } from '../config/types';
+import { responseHelper } from '../helpers/response';
 
 export default async (event: APIGatewayProxyEvent): Promise<ApiResponse> => {
   try {
@@ -20,24 +21,14 @@ export default async (event: APIGatewayProxyEvent): Promise<ApiResponse> => {
 
     const res = await funeralHome.save() as unknown as FuneralHomeRecord;
 
-    return {
-      statusCode: 200,
-      body: {
-        data: {
-          funeralHomeId: res.PK,
-          funeralHomeCode,
-          funeralHomeName: body.funeralHomeName,
-        },
-      },
-    };
+  return responseHelper<RegisterResponse>({ statusCode: 200, data: {
+    funeralHomeId: res.PK,
+    funeralHomeCode,
+    funeralHomeName: body.funeralHomeName,
+  }});
   } catch (e: any | unknown) {
     console.error('error', e);
 
-    return {
-      statusCode: 500,
-      body: {
-        error: e.message,
-      },
-    };
+    return responseHelper({ data: { error: e.message }})
   }
 };

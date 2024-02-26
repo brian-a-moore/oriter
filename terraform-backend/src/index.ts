@@ -12,6 +12,7 @@ import {
 } from './config/validation/schemas/request';
 import Joi from 'joi';
 import { ApiResponse } from './config/types';
+import { responseHelper } from './helpers/response';
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<ApiResponse> => {
   if (event.body) {
@@ -48,30 +49,17 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<ApiResponse>
       default:
         console.error('resource-not-found', route);
 
-        return {
-          statusCode: 404,
-          body: {
-            error: 'Not Found',
-          },
-        };
+        return responseHelper({ statusCode: 404, data: { error: 'Not Found' }});
     }
   } catch (error: any | unknown) {
     if (error instanceof Joi.ValidationError) {
       console.error('validation-error', error);
        
-      return {
-        statusCode: 400,
-        body: {
-          error: error.message,
-        },
-      };
+      return responseHelper({ statusCode: 400, data: { error: error.message }});
     }
 
     console.error('server-error', error);
 
-    return {
-      statusCode: error.statusCode || 500,
-      body: { error: error.message || 'Internal Server Error' },
-    };
+    return responseHelper({});
   }
 };
