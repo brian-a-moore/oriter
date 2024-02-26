@@ -18,20 +18,20 @@ export default async (event: APIGatewayProxyEvent): Promise<ApiResponse> => {
       funeralHomeCode,
     } as FuneralHomeRecord);
 
-    await funeralHome.save();
+    const res = await funeralHome.save() as unknown as FuneralHomeRecord;
 
     return {
       statusCode: 200,
       body: {
         data: {
-          funeralHomeId: 'funeral-home-id',
-          funeralHomeCode: 'funeral-home-code',
-          funeralHomeName: 'funeral-home-name',
+          funeralHomeId: res.PK,
+          funeralHomeCode,
+          funeralHomeName: body.funeralHomeName,
         },
       },
     };
   } catch (e: any | unknown) {
-    console.error(e);
+    console.error('error', e);
 
     return {
       statusCode: 500,
