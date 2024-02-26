@@ -23,6 +23,4 @@ const handler = async (event: APIGatewayProxyEvent, context: Context) => {
   }
 };
 
-export const handlerMiddleware = middy(handler)
-  .use(jsonBodyParser())
-  .use(httpErrorHandler());
+export const handlerMiddleware = middy(handler).use(jsonBodyParser()).use(httpErrorHandler());
