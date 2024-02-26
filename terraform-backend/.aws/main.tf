@@ -88,7 +88,7 @@ resource "aws_iam_role_policy" "lambda_access" {
 # LAMBDA
 resource "aws_lambda_function" "oriter_form_submission" {
   function_name = "oriter_form_submission"
-  handler       = "index.handlerMiddleware"
+  handler       = "dist/index.handlerMiddleware"
   runtime       = "nodejs18.x"
   role          = aws_iam_role.lambda_role.arn
 
