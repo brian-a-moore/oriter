@@ -9,6 +9,16 @@ Resources:
       Handler: index.handler
       Runtime: nodejs18.x
       Events:
+        AddCustomer:
+          Type: Api
+          Properties:
+            Path: /addCustomer
+            Method: post
+        GenerateLink:
+          Type: Api
+          Properties:
+            Path: /generateLink
+            Method: post
         Login:
           Type: Api
           Properties:
