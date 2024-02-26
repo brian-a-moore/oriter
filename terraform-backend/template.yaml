@@ -9,8 +9,28 @@ Resources:
       Handler: index.handler
       Runtime: nodejs18.x
       Events:
-        HelloWorld:
+        Login:
           Type: Api
           Properties:
-            Path: /hello
-            Method: get
+            Path: /login
+            Method: post
+        Register:
+          Type: Api
+          Properties:
+            Path: /register
+            Method: post
+        Submit:
+          Type: Api
+          Properties:
+            Path: /submit
+            Method: post
+        VerifyFormLink:
+          Type: Api
+          Properties:
+            Path: /verifyFormLink
+            Method: post
+        VerifyToken:
+          Type: Api
+          Properties:
+            Path: /verifyToken
+            Method: post

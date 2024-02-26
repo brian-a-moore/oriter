@@ -4,15 +4,12 @@ import { RegisterRequest } from '../config/types/request';
 
 export default async (event: APIGatewayProxyEvent) => {
   try {
-    const body = JSON.parse(event.body || '') as RegisterRequest;
 
-    let funeralHomeCode; 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const body = event.body as RegisterRequest;
 
-    try {
-      funeralHomeCode = `${body.funeralHomeName.substring(0, 3).toUpperCase()}-${body.city.charAt(0)}${body.state}`;
-    } catch (e: any | unknown) {
-      console.error('code error', e.message);
-    }
+    const funeralHomeCode = `${body.funeralHomeName.substring(0, 3).toUpperCase()}-${body.city.charAt(0)}${body.state}`;
 
     const funeralHome = new FuneralHome({
       ...body,
