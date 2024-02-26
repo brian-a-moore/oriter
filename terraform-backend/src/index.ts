@@ -10,7 +10,9 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
     event.body = JSON.parse(event.body);
   }
 
-  const HTTP_CALL = `${event.httpMethod} ${event.path}`
+  const HTTP_CALL = `${event.httpMethod} ${event.path}`;
+
+  console.log('HTTP_CALL', HTTP_CALL)
 
   try {
     switch (HTTP_CALL) {
@@ -25,11 +27,10 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
       case 'POST /verifyToken':
         return routes.verifyToken(event, context);
       default:
-        return { statusCode: 400, body: 'Invalid route' };
+        return { statusCode: 400, body: JSON.stringify({ message: 'Resource not found' }) };
     }
   } catch (error: any | unknown) {
-    // Handle errors
-    console.error(error);
+    console.error('error', error);
     return {
       statusCode: error.statusCode || 500,
       body: JSON.stringify({ message: error.message || 'Internal Server Error' }),
