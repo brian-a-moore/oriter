@@ -29,7 +29,6 @@ export type LoginRequest = {
 
 export type LoginResponse = {
   funeralHomeId: string;
-  funeralHomeCode: string;
   funeralHomeName: string;
 };
 
@@ -47,19 +46,18 @@ export type RegisterRequest = {
 
 export type RegisterResponse = {
   funeralHomeId: string;
-  funeralHomeCode: string;
   funeralHomeName: string;
 };
 
 export type SubmitRequest = {
-  funeralHomeCode: string;
+  funeralHomeId: string;
   customerId: string;
   responseId: string;
   response: MasterForm;
 };
 
 export type VerifyFormLinkRequest = {
-  funeralHomeCode: string;
+  funeralHomeId: string;
   customerId: string;
   responseId: string;
 };
@@ -71,7 +69,6 @@ export type VerifyTokenRequest = {
 export type VerifyTokenResponse = {
   refreshToken: string;
   funeralHomeId: string;
-  funeralHomeCode: string;
   funeralHomeName: string;
 };
 
@@ -83,7 +80,6 @@ export type ApiResponse = {
 export type FuneralHomeRecord = {
   PK: string;
   SK: string;
-  funeralHomeCode: string;
 } & RegisterRequest;
 
 export type CustomerRecord = {

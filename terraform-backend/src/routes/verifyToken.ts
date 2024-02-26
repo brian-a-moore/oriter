@@ -8,7 +8,6 @@ export default async (event: APIGatewayProxyEvent): Promise<ApiResponse> => {
   return responseHelper<VerifyTokenResponse>({ statusCode: 200, data: {
     refreshToken: 'refresh-token',
     funeralHomeId: 'funeral-home-id',
-    funeralHomeCode: 'funeral-home-code',
     funeralHomeName: 'funeral-home-name',
   }});
 };

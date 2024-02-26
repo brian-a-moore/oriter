@@ -5,7 +5,6 @@ import { masterForm } from './form';
 const STATES: string[] = states.map((s) => s.code);
 
 const email = Joi.string().min(6).max(64).email().required();
-const fhcode = Joi.string().min(7).max(7).required();
 const shortStr = Joi.string().min(1).max(128).required();
 const longStr = Joi.string().min(1).max(256).required();
 const phoneNumber = Joi.string().min(10).max(10).required();
@@ -46,14 +45,12 @@ export const registerRequest = Joi.object({
 }).options({ stripUnknown: true });
 
 export const submitRequest = Joi.object({
-  funeralHomeCode: fhcode,
   customerId: uuid,
   responseId: uuid,
   response: masterForm,
 });
 
 export const verifyFormLinkRequest = Joi.object({
-  funeralHomeCode: fhcode,
   customerId: uuid,
   responseId: uuid,
 }).options({ stripUnknown: true });

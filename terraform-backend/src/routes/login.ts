@@ -7,7 +7,6 @@ export default async (event: APIGatewayProxyEvent): Promise<ApiResponse> => {
 
   return responseHelper<LoginResponse>({ statusCode: 200, data: {
     funeralHomeId: 'funeral-home-id',
-    funeralHomeCode: 'funeral-home-code',
     funeralHomeName: 'funeral-home-name',
   }});
 };

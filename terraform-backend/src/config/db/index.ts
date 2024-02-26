@@ -13,7 +13,6 @@ const funeralHomeSchema = new Schema(
   {
     PK: { type: String, required: true, hashKey: true },
     SK: { type: String, required: true, rangeKey: true },
-    funeralHomeCode: { type: String, required: true },
     funeralHomeName: { type: String, required: true },
     addressLine1: { type: String, required: true },
     addressLine2: String,

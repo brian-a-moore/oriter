@@ -1,0 +1,191 @@
+{
+  "funeralHomeId": "72200d9c-7c03-4edb-98d8-ed2a94d97cde",
+  "customerId": "5d924ca8-2a9a-4a9b-85fa-403fadde8d6a",
+  "responseId": "7c818464-281b-4b33-b71e-e72d836f15aa",
+  "response": {
+    "bio": {
+      "images": null,
+      "firstName": "John",
+      "middleName": "C.",
+      "lastName": "Smith",
+      "nickname": "JC",
+      "placeOfIncident": "HOME",
+      "other": "",
+      "birth": {
+        "date": "1960-10-05",
+        "city": "Los Angeles",
+        "state": "CA"
+      },
+      "death": {
+        "date": "2023-12-05",
+        "city": "Brooklyn",
+        "state": "NY"
+      },
+      "parents": {
+        "father": {
+          "firstName": "Richard",
+          "lastName": "Smith",
+          "isDeceased": true
+        },
+        "mother": {
+          "firstName": "Cindy",
+          "lastName": "Smith",
+          "isDeceased": false
+        }
+      }
+    },
+    "education": {
+      "institutions": [
+        {
+          "id": "d64da716-8697-4af6-9a36-9240709f6f67",
+          "name": "John M. Morehead",
+          "city": "Eden",
+          "state": "NC",
+          "major": "Computer Science",
+          "degree": "HS",
+          "graduationYear": 1973
+        },
+        {
+          "id": "6d648889-72e6-40d3-8ebd-487c04715cc6",
+          "name": "University of North Carolina at Pembroke",
+          "city": "Pembroke",
+          "state": "NC",
+          "major": "Computer Science",
+          "degree": "BS",
+          "graduationYear": 1979
+        }
+      ],
+      "organizations": [
+        {
+          "id": "b985f72f-2acc-4766-bb79-6aaaf2540aca",
+          "name": "Humane Society",
+          "position": "Director",
+          "numOfYears": 14
+        },
+        {
+          "id": "d6db2498-a374-45e7-9de6-19847bd82a8c",
+          "name": "Red Cross",
+          "position": "Manager",
+          "numOfYears": 3
+        }
+      ],
+      "militaryService": {
+        "branch": "NAVY",
+        "position": "Admiral",
+        "numOfYears": 12,
+        "isRetired": true
+      }
+    },
+    "employment": {
+      "employers": [
+        {
+          "id": "cb8ff070-9ddd-41ec-90e9-7c2c5ac49fcc",
+          "name": "United States Government",
+          "city": "Alexandria",
+          "state": "VA",
+          "numOfYears": 12,
+          "isRetired": true
+        },
+        {
+          "id": "1a3f713a-a435-4857-8bf6-ad954ecedd1e",
+          "name": "Federal Bureau of Investigations",
+          "city": "Langley",
+          "state": "VA",
+          "numOfYears": 9,
+          "isRetired": false
+        }
+      ],
+      "hobbies": "Kayaking, Hiking, River Dancing, Collecting Bottle Caps, Basketball, Knitting",
+      "additionalInfo": "He loved his family and did not want anyone to cry over him. He said, 'Have fun, and eat good! Love you all!'"
+    },
+    "family": {
+      "spouse": {
+        "firstName": "Ginger",
+        "lastName": "Ale",
+        "numOfYears": 52
+      },
+      "children": [
+        {
+          "id": "f6090afb-9be1-4e47-90aa-87941516bc67",
+          "firstName": "Spencer",
+          "lastName": "Smith",
+          "spouseName": "Virginia",
+          "city": "Boston",
+          "state": "MA",
+          "isDeceased": false
+        },
+        {
+          "id": "a7e87c96-43e5-4ba0-a700-a32cccad1585",
+          "firstName": "Frieda",
+          "lastName": "Smith",
+          "spouseName": "Deric",
+          "city": "Chicago",
+          "state": "IL",
+          "isDeceased": true
+        }
+      ],
+      "siblings": [
+        {
+          "id": "96bf0cdd-cbf9-4957-8eb7-9fe29a6d6012",
+          "firstName": "Daniela",
+          "lastName": "Tuttle",
+          "spouseName": "Frank",
+          "city": "Denver",
+          "state": "CO",
+          "isDeceased": false
+        },
+        {
+          "id": "07bf4115-2073-4ca2-9b4a-c609907f3942",
+          "firstName": "Emil",
+          "lastName": "Smith",
+          "spouseName": "Victoria",
+          "city": "Phoenix",
+          "state": "AZ",
+          "isDeceased": true
+        }
+      ],
+      "friends": [
+        {
+          "id": "07974420-c2b2-4b02-9703-0de55a508cc7",
+          "firstName": "Lucas",
+          "lastName": "Wright"
+        },
+        {
+          "id": "6354dd6f-fd1f-4c42-8800-a3d5fcc8648a",
+          "firstName": "Andrew",
+          "lastName": "Tanner"
+        }
+      ]
+    },
+    "info": {
+      "firstName": "Spencer",
+      "lastName": "Smith",
+      "email": "spencer.smith@gmail.com",
+      "funeralHomeName": "Warm Horizon's of Atlanta",
+      "city": "Boston",
+      "state": "MA"
+    },
+    "service": {
+      "service": {
+        "name": "Warm Horizon's of Atlanta",
+        "city": "Atlanta",
+        "state": "GA",
+        "ministerName": "Paul Willis",
+        "date": "2023-12-09",
+        "time": "11:00"
+      },
+      "viewing": {
+        "name": "Warm Horizon's of Atlanta",
+        "city": "Atlanta",
+        "state": "GA",
+        "startTime": "09:00",
+        "endTime": "10:30"
+      },
+      "repass": {
+        "name": "Warm Horizon's of Atlanta",
+        "city": "Atlanta",
+        "state": "GA"
+      }
+    }
+  }
+}
