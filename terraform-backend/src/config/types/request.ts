@@ -13,9 +13,9 @@ export type RegisterRequest = {
   state: State;
   email: string;
   funeralHomeName: string;
-  primaryContactFirstName: string;
-  primaryContactLastName: string;
-  primaryContactPhoneNumber: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
 };
 
 export type SubmitRequest = MasterForm;

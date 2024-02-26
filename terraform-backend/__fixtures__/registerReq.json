@@ -4,7 +4,7 @@
   "state": "VA",
   "email": "foobar@gmail.com",
   "funeralHomeName": "Funeral Home Name",
-  "primaryContactFirstName": "John",
-  "primaryContactLastName": "Smith",
-  "primaryContactPhoneNumber": "9998887777"
+  "firstName": "John",
+  "lastName": "Smith",
+  "phoneNumber": "9998887777"
 }

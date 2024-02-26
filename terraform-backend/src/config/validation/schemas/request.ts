@@ -24,9 +24,9 @@ export const registerRequest = Joi.object({
     .required(),
   email,
   funeralHomeName: longStr,
-  primaryContactFirstName: shortStr,
-  primaryContactLastName: shortStr,
-  primaryContactPhoneNumber: Joi.string().min(10).max(10).required(),
+  firstName: shortStr,
+  lastName: shortStr,
+  phoneNumber: Joi.string().min(10).max(10).required(),
 }).options({ stripUnknown: true });
 
 export const submitRequest = masterForm;

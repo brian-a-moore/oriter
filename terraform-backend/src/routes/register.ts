@@ -1,6 +1,7 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
 import { FuneralHome } from '../config/db';
 import { RegisterRequest } from '../config/types/request';
+import crypto from 'crypto';
 
 export default async (event: APIGatewayProxyEvent) => {
   try {
@@ -9,13 +10,13 @@ export default async (event: APIGatewayProxyEvent) => {
     // @ts-ignore
     const body = event.body as RegisterRequest;
 
-    const funeralHomeCode = `${body.funeralHomeName.substring(0, 3).toUpperCase()}-${body.city.charAt(0)}${body.state}`;
+    const code = `${body.funeralHomeName.substring(0, 3).toUpperCase()}-${body.city.charAt(0)}${body.state}`;
 
     const funeralHome = new FuneralHome({
       ...body,
       pk: crypto.randomUUID(),
       sk: 'FUNERAL_HOME',
-      funeralHomeCode,
+      code,
     });
 
     await funeralHome.save();
