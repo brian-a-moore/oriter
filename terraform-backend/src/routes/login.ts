@@ -1,9 +1,8 @@
-import { APIGatewayProxyEvent, Context } from 'aws-lambda';
+import { APIGatewayProxyEvent } from 'aws-lambda';
 import { ApiResponse, LoginResponse } from '../config/types';
 
-export default async (event: APIGatewayProxyEvent, context: Context): Promise<ApiResponse<LoginResponse>> => {
+export default async (event: APIGatewayProxyEvent): Promise<ApiResponse<LoginResponse>> => {
   console.log('event', event);
-  console.log('context', context);
 
   return {
     statusCode: 200,
