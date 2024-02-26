@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent, Context } from 'aws-lambda';
 import * as routes from './functions';
 
-const handler = async (event: APIGatewayProxyEvent, context: Context) => {
+export const handler = async (event: APIGatewayProxyEvent, context: Context) => {
   console.log('event', event);
   console.log('context', context);
 
@@ -10,8 +10,10 @@ const handler = async (event: APIGatewayProxyEvent, context: Context) => {
     event.body = JSON.parse(event.body);
   }
 
+  const HTTP_CALL = `${event.httpMethod} ${event.path}`
+
   try {
-    switch (event.resource) {
+    switch (HTTP_CALL) {
       case 'POST /login':
         return routes.login(event, context);
       case 'POST /register':
@@ -34,5 +36,3 @@ const handler = async (event: APIGatewayProxyEvent, context: Context) => {
     };
   }
 };
-
-export const handlerMiddleware = handler;
