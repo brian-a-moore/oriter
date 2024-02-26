@@ -1,14 +1,5 @@
 import Joi from 'joi';
-import {
-  BOOL,
-  EDUCATION_LEVEL,
-  ID,
-  NUM_OF_YRS,
-  STATE_OPTIONAL,
-  STRING,
-  STRING_OPTIONAL,
-  YEAR,
-} from './constants';
+import { BOOL, EDUCATION_LEVEL, ID, NUM_OF_YRS, STATE_OPTIONAL, STRING, STRING_OPTIONAL, YEAR } from './constants';
 
 export const childItem = Joi.object({
   id: ID,

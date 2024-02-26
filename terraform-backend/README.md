@@ -6,4 +6,5 @@
 - Run `terraform apply` to create the resources.
 
 ## Script
+
 - `chmod +x deploy.sh`

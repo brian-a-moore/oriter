@@ -1,7 +1,13 @@
 import { APIGatewayProxyEvent, Context } from 'aws-lambda';
 import * as routes from './routes';
-import schemaValidatorMiddleware from './middleware/schema-validator.middleware';
-import { loginRequest, registerRequest, submitRequest, verifyFormLinkRequest, verifyTokenRequest } from './schemas/request';
+import schemaValidatorMiddleware from './config/validation';
+import {
+  loginRequest,
+  registerRequest,
+  submitRequest,
+  verifyFormLinkRequest,
+  verifyTokenRequest,
+} from './config/validation/schemas/request';
 import Joi from 'joi';
 
 export const handler = async (event: APIGatewayProxyEvent, context: Context) => {
@@ -37,11 +43,11 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
         return { statusCode: 404, body: JSON.stringify({ error: 'Resource not found' }) };
     }
   } catch (error: any | unknown) {
-    if(error instanceof Joi.ValidationError) {
+    if (error instanceof Joi.ValidationError) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: error.message })
-      }
+        body: JSON.stringify({ error: error.message }),
+      };
     }
     return {
       statusCode: error.statusCode || 500,

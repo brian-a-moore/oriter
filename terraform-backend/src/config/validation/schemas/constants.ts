@@ -1,10 +1,5 @@
 import Joi from 'joi';
-import {
-  EducationLevel,
-  IncidentLocation,
-  MilitaryBranch,
-  State,
-} from '../types/enums';
+import { EducationLevel, IncidentLocation, MilitaryBranch, State } from '../../types/enums';
 
 export const BOOL = Joi.bool().required();
 
@@ -12,9 +7,7 @@ export const DATE = Joi.string().required();
 
 export const EDUCATION_LEVEL = (label: string) =>
   Joi.string()
-    .valid(
-      ...Object.values(EducationLevel).filter(v => v !== EducationLevel.NONE),
-    )
+    .valid(...Object.values(EducationLevel).filter((v) => v !== EducationLevel.NONE))
     .messages({
       'any.only': `${label} is required`,
       'any.required': `${label} is required`,
@@ -26,9 +19,7 @@ export const FILE = Joi.any(); // Really need to verify this works;
 export const ID = Joi.string().uuid().required();
 
 export const INCIDENT_LOCATION = Joi.string()
-  .valid(
-    ...Object.values(IncidentLocation).filter(v => v !== IncidentLocation.NONE),
-  )
+  .valid(...Object.values(IncidentLocation).filter((v) => v !== IncidentLocation.NONE))
   .messages({
     'any.only': `Place of Incident is required`,
     'string.valid': `Place of Incident is required`,
@@ -37,9 +28,7 @@ export const INCIDENT_LOCATION = Joi.string()
   .required();
 
 export const MILITARY_BRANCH = Joi.string()
-  .valid(
-    ...Object.values(MilitaryBranch).filter(v => v !== MilitaryBranch.NONE),
-  )
+  .valid(...Object.values(MilitaryBranch).filter((v) => v !== MilitaryBranch.NONE))
   .messages({
     'any.only': `Branch is required`,
     'string.empty': `Branch is required`,
@@ -76,7 +65,7 @@ export const PARAGRAPH_OPTIONAL = (label: string) =>
     .required();
 
 export const STATE = Joi.string()
-  .valid(...Object.values(State).filter(v => v !== State.NONE))
+  .valid(...Object.values(State).filter((v) => v !== State.NONE))
   .messages({
     'any.only': `State is required`,
     'any.required': `State is required`,

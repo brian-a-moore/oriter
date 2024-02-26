@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { IncidentLocation, MilitaryBranch } from '../types/enums';
+import { IncidentLocation, MilitaryBranch } from '../../types/enums';
 import {
   DATE,
   FILE,
@@ -13,14 +13,7 @@ import {
   STRING_OPTIONAL,
   TIME,
 } from './constants';
-import {
-  childItem,
-  employerItem,
-  friendItem,
-  institutionItem,
-  organizationItem,
-  siblingItem,
-} from './items';
+import { childItem, employerItem, friendItem, institutionItem, organizationItem, siblingItem } from './items';
 
 export const bioResolver = Joi.object({
   images: Joi.array()

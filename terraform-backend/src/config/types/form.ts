@@ -1,9 +1,4 @@
-import {
-  EducationLevel,
-  IncidentLocation,
-  MilitaryBranch,
-  State,
-} from './enums';
+import { EducationLevel, IncidentLocation, MilitaryBranch, State } from './enums';
 
 type Child = {
   id: string;
@@ -134,6 +129,15 @@ type Institution = {
 
 export type MasterForm = {
   bio: FormBio;
+  education: FormEducation;
+  employment: FormEmployment;
+  family: FormFamily;
+  info: FormInfo;
+  service: FormService;
+};
+
+export type ResponseRecord = {
+  bio: Omit<FormBio, 'images'>;
   education: FormEducation;
   employment: FormEmployment;
   family: FormFamily;
