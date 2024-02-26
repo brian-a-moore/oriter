@@ -1,0 +1,88 @@
+{
+    "bio": {
+        "images": null,
+        "firstName": "John",
+        "middleName": "",
+        "lastName": "Smith",
+        "nickname": "",
+        "placeOfIncident": "HOME",
+        "other": "",
+        "birth": {
+            "date": "1960-10-05",
+            "city": "",
+            "state": "NONE"
+        },
+        "death": {
+            "date": "2023-12-05",
+            "city": "",
+            "state": "NONE"
+        },
+        "parents": {
+            "father": {
+                "firstName": "",
+                "lastName": "",
+                "isDeceased": false
+            },
+            "mother": {
+                "firstName": "",
+                "lastName": "",
+                "isDeceased": false
+            }
+        }
+    },
+    "education": {
+        "institutions": [],
+        "organizations": [],
+        "militaryService": {
+            "branch": "NONE",
+            "position": "",
+            "numOfYears": 0,
+            "isRetired": false
+        }
+    },
+    "employment": {
+        "employers": [],
+        "hobbies": "",
+        "additionalInfo": ""
+    },
+    "family": {
+        "spouse": {
+            "firstName": "",
+            "lastName": "",
+            "numOfYears": 0
+        },
+        "children": [],
+        "siblings": [],
+        "friends": []
+    },
+    "info": {
+        "firstName": "Spencer",
+        "lastName": "Smith",
+        "email": "spencer.smith@gmail.com",
+        "funeralHomeName": "Warm Horizon's of Atlanta",
+        "city": "Boston",
+        "state": "MA"
+    },
+    "service": {
+        "service": {
+            "name": "Warm Horizon's of Atlanta",
+            "city": "Atlanta",
+            "state": "GA",
+            "ministerName": "Paul Willis",
+            "date": "2023-12-09",
+            "time": "11:00"
+        },
+        "viewing": {
+            "name": "Warm Horizon's of Atlanta",
+            "city": "Atlanta",
+            "state": "GA",
+            "startTime": "09:00",
+            "endTime": "10:30"
+        },
+        "repass": {
+            "name": "Warm Horizon's of Atlanta",
+            "city": "Atlanta",
+            "state": "GA"
+        }
+    }
+}
