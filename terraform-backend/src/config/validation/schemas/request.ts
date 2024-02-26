@@ -4,9 +4,9 @@ import { masterForm } from './form';
 
 const STATES: string[] = states.map((s) => s.code);
 
-const email = Joi.string().min(6).max(64).email();
-const shortStr = Joi.string().min(1).max(128);
-const longStr = Joi.string().min(1).max(256);
+const email = Joi.string().min(6).max(64).email().required();
+const shortStr = Joi.string().min(1).max(128).required();
+const longStr = Joi.string().min(1).max(256).required();
 
 export const loginRequest = Joi.object({
   email,
@@ -20,22 +20,22 @@ export const registerRequest = Joi.object({
   state: Joi.string()
     .min(2)
     .max(2)
-    .valid(...STATES),
+    .valid(...STATES).required,
   email,
   funeralHomeName: longStr,
   primaryContactFirstName: shortStr,
   primaryContactLastName: shortStr,
-  primaryContactPhoneNumber: Joi.string().min(10).max(10),
+  primaryContactPhoneNumber: Joi.string().min(10).max(10).required(),
 }).options({ stripUnknown: true });
 
 export const submitRequest = masterForm;
 
 export const verifyFormLinkRequest = Joi.object({
   funeralHomeCode: Joi.string().min(7).max(7).required(),
-  customerId: Joi.string(),
-  requestId: Joi.string(),
+  customerId: Joi.string().uuid().required(),
+  requestId: Joi.string().uuid().required(),
 }).options({ stripUnknown: true });
 
 export const verifyTokenRequest = Joi.object({
-  token: Joi.string(),
+  token: Joi.string().token().required(),
 }).options({ stripUnknown: true });
