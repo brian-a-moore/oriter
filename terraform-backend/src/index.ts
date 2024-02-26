@@ -3,6 +3,7 @@ import * as routes from './routes';
 import schemaValidatorMiddleware from './config/validation';
 import {
   addCustomerRequest,
+  generateLinkRequest,
   loginRequest,
   registerRequest,
   submitRequest,
@@ -28,7 +29,7 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context): Pr
         return routes.addCustomer(event, context);
       case 'POST /generateLink':
         await schemaValidatorMiddleware(event, generateLinkRequest);
-        return routes.generateRequest(event, context);  
+        return routes.generateLink(event, context);
       case 'POST /login':
         await schemaValidatorMiddleware(event, loginRequest);
         return routes.login(event, context);
@@ -45,18 +46,30 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context): Pr
         await schemaValidatorMiddleware(event, verifyTokenRequest);
         return routes.verifyToken(event, context);
       default:
-        return { statusCode: 404, body: JSON.stringify({ error: 'Resource not found' }) };
+        console.error('resource-not-found', route);
+
+        return {
+          statusCode: 404,
+          body: {
+            error: 'Not Found',
+          },
+        };
     }
   } catch (error: any | unknown) {
     if (error instanceof Joi.ValidationError) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: error.message }),
+        body: {
+          error: error.message,
+        },
       };
     }
+
+    console.error('server-error', error);
+
     return {
       statusCode: error.statusCode || 500,
-      body: JSON.stringify({ error: error.message || 'Internal Server Error' }),
+      body: { error: error.message || 'Internal Server Error' },
     };
   }
 };

@@ -16,7 +16,12 @@ export const addCustomerRequest = Joi.object({
   firstName: shortStr,
   lastName: shortStr,
   email,
-  phoneNumber
+  phoneNumber,
+});
+
+export const generateLinkRequest = Joi.object({
+  funeralHomeId: uuid,
+  customerId: uuid,
 });
 
 export const loginRequest = Joi.object({

@@ -26,18 +26,18 @@ export default async (event: APIGatewayProxyEvent): Promise<ApiResponse> => {
         data: {
           funeralHomeId: 'funeral-home-id',
           funeralHomeCode: 'funeral-home-code',
-          funeralHomeName: 'funeral-home-name'
-        }
-      }
+          funeralHomeName: 'funeral-home-name',
+        },
+      },
     };
   } catch (e: any | unknown) {
     console.error(e);
-    
+
     return {
       statusCode: 500,
       body: {
-        error: e.message
-      }
+        error: e.message,
+      },
     };
   }
 };

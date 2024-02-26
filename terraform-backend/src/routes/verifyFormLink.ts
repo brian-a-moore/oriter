@@ -7,6 +7,6 @@ export default async (event: APIGatewayProxyEvent, context: Context): Promise<Ap
 
   return {
     statusCode: 200,
-    body: {}
+    body: {},
   };
 };

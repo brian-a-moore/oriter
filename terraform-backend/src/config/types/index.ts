@@ -11,16 +11,16 @@ export type AddCustomerRequest = {
 
 export type AddCustomerResponse = {
   customerId: string;
-}
+};
 
 export type GenerateLinkRequest = {
   funeralHomeId: string;
   customerId: string;
-}
+};
 
 export type GenerateLinkResponse = {
   link: string;
-}
+};
 
 export type LoginRequest = {
   email: string;
@@ -31,7 +31,7 @@ export type LoginResponse = {
   funeralHomeId: string;
   funeralHomeCode: string;
   funeralHomeName: string;
-}
+};
 
 export type RegisterRequest = {
   addressLine1: string;
@@ -49,7 +49,7 @@ export type RegisterResponse = {
   funeralHomeId: string;
   funeralHomeCode: string;
   funeralHomeName: string;
-}
+};
 
 export type SubmitRequest = {
   funeralHomeCode: string;
@@ -73,7 +73,7 @@ export type VerifyTokenResponse = {
   funeralHomeId: string;
   funeralHomeCode: string;
   funeralHomeName: string;
-}
+};
 
 export type ApiResponse<D = any> = {
   statusCode: number;

@@ -12,8 +12,8 @@ export default async (event: APIGatewayProxyEvent, context: Context): Promise<Ap
         refreshToken: 'refresh-token',
         funeralHomeId: 'funeral-home-id',
         funeralHomeCode: 'funeral-home-code',
-        funeralHomeName: 'funeral-home-name'
-      }
-    }
+        funeralHomeName: 'funeral-home-name',
+      },
+    },
   };
 };
