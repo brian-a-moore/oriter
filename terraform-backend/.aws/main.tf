@@ -37,7 +37,6 @@ resource "aws_s3_bucket" "oriter_customer_images" {
 }
 
 resource "aws_s3_bucket" "oriter_lambda_code" {
-  depends_on = [aws_s3_bucket.oriter_lambda_code]
   bucket = "oriter-lambda-code"
   acl    = "private"
 }
@@ -47,6 +46,7 @@ resource "aws_s3_bucket_object" "object" {
   key    = "oriter_code.zip"
   source = "../oriter_code.zip"
   etag   = filemd5("../oriter_code.zip")
+  depends_on = [aws_s3_bucket.oriter_lambda_code]
 }
 
 # IAM
@@ -96,7 +96,7 @@ resource "aws_iam_role_policy" "lambda_access" {
 # LAMBDA
 resource "aws_lambda_function" "oriter_form_submission" {
   function_name = "oriter_form_submission"
-  handler       = "dist/index.handlerMiddleware"
+  handler       = "dist/index.handler"
   runtime       = "nodejs18.x"
   role          = aws_iam_role.lambda_role.arn
   s3_bucket = aws_s3_bucket.oriter_lambda_code.bucket

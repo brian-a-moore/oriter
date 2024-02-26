@@ -4,13 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "package": "cd dist npm install --production && zip -r oriter_code.zip .",
-    "deploy": "npm run build && npm run package && cd .aws && terraform apply",
+    "build": "tsc --build && bestzip ./oriter_code.zip ./dist/*",
+    "deploy": "npm run build && cd .aws && terraform apply",
     "typecheck": "tsc --noEmit",
     "lint": "npx eslint .eslintrc --quiet --fix",
     "prettier": "npx prettier --config .prettierrc --write .",
-    "prepare": "husky"
+    "test": "sam build && sam local invoke OriterFormSubmission"
   },
   "keywords": [],
   "author": "",
@@ -18,28 +17,17 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
+    "aws-sdk": "^2.1565.0",
+    "bestzip": "^2.2.1",
+    "clean-webpack-plugin": "^4.0.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
-    "husky": "^9.0.11",
     "prettier": "^3.2.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
-  },
-  "lint-staged": {
-    "*.js": [
-      "npx eslint .eslintrc --quiet --fix",
-      "npx prettier --config .prettierrc --write '**/*.js'"
-    ],
-    "*.ts": [
-      "npx eslint .eslintrc --quiet --fix",
-      "npx prettier --config .prettierrc --write '**/*.ts'"
-    ]
-  },
-  "dependencies": {
-    "@middy/core": "^5.2.4",
-    "@middy/http-error-handler": "^5.2.4",
-    "@middy/http-json-body-parser": "^5.2.4",
-    "middy": "^0.36.0"
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4",
+    "zip-webpack-plugin": "^4.0.1"
   }
 }
