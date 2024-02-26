@@ -4,7 +4,7 @@ import httpErrorHandler from '@middy/http-error-handler';
 import jsonBodyParser from '@middy/http-json-body-parser';
 import * as routes from './functions';
 
-const handler = async (event: APIGatewayProxyEvent, context: Context) => {
+const router = async (event: APIGatewayProxyEvent, context: Context) => {
   console.log('event', event);
   console.log('context', context);
   
@@ -24,6 +24,6 @@ const handler = async (event: APIGatewayProxyEvent, context: Context) => {
   }
 };
 
-export const handlerMiddleware = middy(handler)
+export const handler = middy(router)
   .use(jsonBodyParser())
   .use(httpErrorHandler());
