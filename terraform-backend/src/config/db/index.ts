@@ -13,15 +13,15 @@ const funeralHomeSchema = new Schema({
   pk: { type: String, required: true, hashKey: true },
   sk: { type: String, required: true, rangeKey: true },
   code: { type: String, required: true },
-  name: { type: String, required: true },
+  funeralHomeName: { type: String, required: true },
   addressLine1: { type: String, required: true },
   addressLine2: { type: String, required: true },
   city: { type: String, required: true },
   state: { type: String, required: true },
   email: { type: String, required: true },
   phoneNumber: { type: String, required: true },
-  primaryContactFirstName: { type: String, required: true },
-  primaryContactLastName: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
 });
 
 const customerSchema = new Schema({
