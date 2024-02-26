@@ -1,21 +1,12 @@
 import { Schema } from 'dynamoose';
 
-const FriendSchema = {
+const friendSchema = new Schema({
   id: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-};
-const ChildSchema = {
-  id: { type: String, required: true },
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  spouseName: { type: String, required: true },
-  city: { type: String, required: true },
-  state: { type: String, required: true },
-  isDeceased: { type: Boolean, required: true },
-};
+});
 
-const SiblingSchema = {
+const childSchema = new Schema({
   id: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -23,7 +14,17 @@ const SiblingSchema = {
   city: { type: String, required: true },
   state: { type: String, required: true },
   isDeceased: { type: Boolean, required: true },
-};
+});
+
+const siblingSchema = new Schema({
+  id: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  spouseName: { type: String, required: true },
+  city: { type: String, required: true },
+  state: { type: String, required: true },
+  isDeceased: { type: Boolean, required: true },
+});
 
 export const familySchema = new Schema({
   spouse: {
@@ -37,17 +38,17 @@ export const familySchema = new Schema({
   },
   children: {
     type: Array,
-    schema: [ChildSchema],
+    schema: [childSchema],
     required: true,
   },
   siblings: {
     type: Array,
-    schema: [SiblingSchema],
+    schema: [siblingSchema],
     required: true,
   },
   friends: {
     type: Array,
-    schema: [FriendSchema],
+    schema: [friendSchema],
     required: true,
   },
 });
