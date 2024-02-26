@@ -29,7 +29,7 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
         return routes.login(event, context);
       case 'POST /register':
         event = await schemaValidatorMiddleware(event, registerRequest);
-        return routes.register(event, context);
+        return routes.register(event);
       case 'POST /submit':
         event = await schemaValidatorMiddleware(event, submitRequest);
         return routes.submit(event, context);
