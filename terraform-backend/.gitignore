@@ -1,0 +1,7 @@
+node_modules
+dist
+oriter_code.zip
+package-lock.json
+.terraform
+.terraform.lock.hcl
+.DS_Store

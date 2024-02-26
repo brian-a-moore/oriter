@@ -1,0 +1,45 @@
+{
+  "name": "terraform-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "package": "zip -r oriter_code.zip dist",
+    "deploy": "npm run build && npm run package && cd .aws && terraform apply",
+    "typecheck": "tsc --noEmit",
+    "lint": "npx eslint .eslintrc --quiet --fix",
+    "prettier": "npx prettier --config .prettierrc --write .",
+    "prepare": "husky"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "husky": "^9.0.11",
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npx eslint .eslintrc --quiet --fix",
+      "npx prettier --config .prettierrc --write '**/*.js'"
+    ],
+    "*.ts": [
+      "npx eslint .eslintrc --quiet --fix",
+      "npx prettier --config .prettierrc --write '**/*.ts'"
+    ]
+  },
+  "dependencies": {
+    "@middy/core": "^5.2.4",
+    "@middy/http-error-handler": "^5.2.4",
+    "@middy/http-json-body-parser": "^5.2.4",
+    "middy": "^0.36.0"
+  }
+}
