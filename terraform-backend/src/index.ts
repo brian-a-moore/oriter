@@ -39,7 +39,7 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
   } catch (error: any | unknown) {
     if(error instanceof Joi.ValidationError) {
       return {
-        statusCode: 401,
+        statusCode: 400,
         body: JSON.stringify({ error: error.message })
       }
     }
