@@ -37,5 +37,5 @@ export const verifyFormLinkRequest = Joi.object({
 }).options({ stripUnknown: true });
 
 export const verifyTokenRequest = Joi.object({
-  token: Joi.string().token().required(),
+  token: Joi.string().required(),
 }).options({ stripUnknown: true });
