@@ -5,3 +5,5 @@ package-lock.json
 .terraform
 .terraform.lock.hcl
 .DS_Store
+*.tfstate
+*.tfstate.backup

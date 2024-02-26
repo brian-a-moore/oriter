@@ -25,17 +25,18 @@ resource "aws_dynamodb_table" "oriter_database" {
 
 # S3
 resource "aws_s3_bucket" "oriter_customer_images" {
-  bucket = "oriter_customer_images"
+  bucket = "oriter-customer-images"
   acl    = "private"
 }
 
 resource "aws_s3_bucket" "oriter_lambda_code" {
-  bucket = "oriter_lambda_code"
+  depends_on = [aws_s3_bucket.oriter_lambda_code]
+  bucket = "oriter-lambda-code"
   acl    = "private"
 }
 
 resource "aws_s3_bucket_object" "object" {
-  bucket = "oriter_lambda_code"
+  bucket = "oriter-lambda-code"
   key    = "oriter_code.zip"
   source = "../oriter_code.zip"
 }
@@ -88,6 +89,8 @@ resource "aws_lambda_function" "oriter_form_submission" {
 
   s3_bucket = aws_s3_bucket.oriter_lambda_code.bucket
   s3_key    = "oriter_code.zip"
+
+  depends_on = [aws_s3_bucket_object.object]
 }
 
 # API Gateway
