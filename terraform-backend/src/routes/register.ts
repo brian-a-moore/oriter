@@ -7,7 +7,9 @@ export default async (event: APIGatewayProxyEvent) => {
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const body = event.body as RegisterRequest;
+    const body = JSON.parse(event.body) as RegisterRequest;
+
+    console.log('data: ',{ event, body })
 
     const funeralHomeCode = `${body.funeralHomeName.substring(0, 3).toUpperCase()}-${body.city.charAt(0)}${body.state}`;
 

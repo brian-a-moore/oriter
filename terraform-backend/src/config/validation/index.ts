@@ -2,7 +2,7 @@ import Joi, { ObjectSchema } from 'joi';
 import { APIGatewayProxyEvent } from 'aws-lambda';
 
 const schemaValidatorMiddleware = async (event: APIGatewayProxyEvent, schema: ObjectSchema) => {
-  if (!event.body) {
+  if (typeof event.body !== 'object') {
     throw new Joi.ValidationError(
       'Body undefined',
       [
@@ -16,11 +16,7 @@ const schemaValidatorMiddleware = async (event: APIGatewayProxyEvent, schema: Ob
     );
   }
 
-  const { body } = await schema.validateAsync(event.body);
-
-  event.body = body;
-
-  return event;
+ await schema.validateAsync(event.body);
 };
 
 export default schemaValidatorMiddleware;
