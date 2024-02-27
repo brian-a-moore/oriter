@@ -13,6 +13,7 @@ import {
 import Joi from 'joi';
 import { ApiResponse } from './config/types';
 import { responseHelper } from './helpers/response';
+import { authorizor } from './helpers/authorizor';
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<ApiResponse> => {
   if (event.body) {
@@ -26,15 +27,17 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<ApiResponse>
   try {
     switch (route) {
       case 'POST /addCustomer':
+        await authorizor(event);
         await validateSchema(event, addCustomerRequest);
         return routes.addCustomer(event);
       case 'POST /generateLink':
+        await authorizor(event);
         await validateSchema(event, generateLinkRequest);
         return routes.generateLink(event);
       case 'POST /login':
         await validateSchema(event, loginRequest);
         return routes.login(event);
-      case 'POST /register': 
+      case 'POST /register':
         await validateSchema(event, registerRequest);
         return routes.register(event);
       case 'POST /submit':
@@ -44,18 +47,19 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<ApiResponse>
         await validateSchema(event, verifyFormLinkRequest);
         return routes.verifyFormLink(event);
       case 'POST /verifyToken':
+        await authorizor(event);
         await validateSchema(event, verifyTokenRequest);
         return routes.verifyToken(event);
       default:
         console.error('resource-not-found', route);
 
-        return responseHelper({ statusCode: 404, data: { error: 'Not Found' }});
+        return responseHelper({ statusCode: 404, data: { error: 'Not Found' } });
     }
   } catch (error: any | unknown) {
     if (error instanceof Joi.ValidationError) {
       console.error('validation-error', error);
-       
-      return responseHelper({ statusCode: 400, data: { error: error.message }});
+
+      return responseHelper({ statusCode: 400, data: { error: error.message } });
     }
 
     console.error('server-error', error);

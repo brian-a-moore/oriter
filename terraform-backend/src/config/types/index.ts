@@ -28,6 +28,7 @@ export type LoginRequest = {
 };
 
 export type LoginResponse = {
+  authToken: string;
   funeralHomeId: string;
   funeralHomeName: string;
 };

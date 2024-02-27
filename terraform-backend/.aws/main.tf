@@ -21,6 +21,19 @@ resource "aws_dynamodb_table" "oriter_database" {
     name = "SK"
     type = "S"
   }
+
+    attribute {
+    name = "email"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name               = "EmailIndex"
+    hash_key           = "email"
+    projection_type    = "ALL"
+    read_capacity      = 20
+    write_capacity     = 20
+  }
 }
 
 # S3

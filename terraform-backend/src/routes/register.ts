@@ -16,15 +16,18 @@ export default async (event: APIGatewayProxyEvent): Promise<ApiResponse> => {
       SK: 'FUNERAL_HOME',
     } as FuneralHomeRecord);
 
-    const res = await funeralHome.save() as unknown as FuneralHomeRecord;
+    const res = (await funeralHome.save()) as unknown as FuneralHomeRecord;
 
-  return responseHelper<RegisterResponse>({ statusCode: 200, data: {
-    funeralHomeId: res.PK,
-    funeralHomeName: body.funeralHomeName,
-  }});
+    return responseHelper<RegisterResponse>({
+      statusCode: 200,
+      data: {
+        funeralHomeId: res.PK,
+        funeralHomeName: body.funeralHomeName,
+      },
+    });
   } catch (e: any | unknown) {
     console.error('error', e);
 
-    return responseHelper({ data: { error: e.message }})
+    return responseHelper({ data: { error: e.message } });
   }
 };

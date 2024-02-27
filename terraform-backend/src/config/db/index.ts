@@ -9,22 +9,21 @@ AWS.config.update({
   region: 'us-east-1',
 });
 
-const funeralHomeSchema = new Schema(
-  {
-    PK: { type: String, required: true, hashKey: true },
-    SK: { type: String, required: true, rangeKey: true },
-    funeralHomeName: { type: String, required: true },
-    addressLine1: { type: String, required: true },
-    addressLine2: String,
-    city: { type: String, required: true },
-    state: { type: String, required: true },
-    email: { type: String, required: true },
-    phoneNumber: { type: String, required: true },
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-  },
-  { timestamps: true },
-);
+const funeralHomeSchema = new Schema({
+  PK: { type: String, required: true, hashKey: true },
+  SK: { type: String, required: true, rangeKey: true },
+  funeralHomeName: { type: String, required: true },
+  addressLine1: { type: String, required: true },
+  addressLine2: String,
+  city: { type: String, required: true },
+  state: { type: String, required: true },
+  email: { type: String, required: true, index: { name: 'EmailIndex', rangeKey: 'SK' } },
+  phoneNumber: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+}, {
+  timestamps: true,
+});
 
 const customerSchema = new Schema(
   {
