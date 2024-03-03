@@ -17,7 +17,7 @@ const morganMapper = new Map([
   [ENV_TYPE.PROD, 'combined'],
 ]);
 
-const app = express();
+export const app = express();
 
 app.use(cors());
 app.use(morgan(morganMapper.get(appEnv) || 'tiny'));

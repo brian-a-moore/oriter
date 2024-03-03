@@ -3,7 +3,7 @@ import { Client } from 'pg';
 
 const { DB_USER, DB_HOST, DB_NAME, DB_PASSWORD } = process.env;
 
-const client = new Client({
+export const connection = new Client({
   user: DB_USER,
   host: DB_HOST,
   database: DB_NAME,
@@ -12,7 +12,7 @@ const client = new Client({
 });
 
 (async () => {
-  await client.connect();
+  await connection.connect();
 })();
 
-export default drizzle(client);
+export const db = drizzle(connection);
