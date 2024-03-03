@@ -8,7 +8,9 @@
     "typecheck": "tsc --noEmit",
     "lint": "npx eslint .eslintrc --quiet --fix",
     "prettier": "npx prettier --config .prettierrc --write .",
-    "test": "sam build && sam local invoke OriterFormSubmission"
+    "test": "sam build && sam local invoke OriterFormSubmission",
+    "db:migrate": "npx drizzle-kit generate:pg --schema='./src/config/db/schema.ts' --out='./src/config/db/migrations'",
+    "db:push": "npx ts-node ./src/config/db/migrate.ts"
   },
   "keywords": [],
   "author": "",
@@ -26,12 +28,14 @@
     "aws-sdk": "^2.1565.0",
     "aws-serverless-express": "^3.4.0",
     "bestzip": "^2.2.1",
+    "dotenv": "^16.4.5",
     "drizzle-kit": "^0.20.14",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
     "morgan": "^1.10.0",
     "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {

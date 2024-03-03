@@ -6,8 +6,8 @@ echo "Deploy starting..."
 npm run build
 
 # Run Drizzle migration
-npx drizzle-kit generate:pg
-npx dotenv -e .env drizzle-kit push:pg
+npm run db:migrate
+npm run db:push
 
 # Run the deploy command
 cd .aws && terraform apply -auto-approve

@@ -1,18 +1,34 @@
-import { drizzle } from 'drizzle-orm/postgres-js';
-import { migrate } from 'drizzle-orm/postgres-js/migrator';
-import { Client } from 'pg';
 
-const sql = new Client({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: 5432,
+import 'dotenv/config';
+
+import { Client } from 'pg';
+import { drizzle } from 'drizzle-orm/node-postgres';
+import { migrate } from 'drizzle-orm/node-postgres/migrator';
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
 });
 
-const db = drizzle(sql);
+client.connect();
 
-(async () => {
-  await sql.connect();
-  await migrate(db, { migrationsFolder: './migrations' });
-})();
+const db = drizzle(client);
+
+const main = async () => {
+  console.log('Migration started...');
+  const startTime = Date.now();
+
+  await migrate(db, { migrationsFolder: 'src/config/db/migrations' });
+
+  const endTime = Date.now();
+  const elapsedTime = (endTime - startTime) / 1000;
+
+  console.log(`Migration complete! Elapsed time: ${elapsedTime} seconds`);
+
+  await client.end();
+  process.exit(0);
+};
+
+main().catch(err => {
+  console.error(err);
+  process.exit(1);
+});
