@@ -1,18 +1,13 @@
 import { relations } from 'drizzle-orm';
 import { json, text, timestamp, pgTable, uuid } from 'drizzle-orm/pg-core';
 
-export const funeralHome = pgTable('funeral_home', {
-  funeralHomeId: uuid('id').primaryKey(),
-  addressLine1: text('address_line_1').notNull(),
-  addressLine2: text('address_line_2'),
-  city: text('city').notNull(),
-  state: text('state').notNull(),
-  zipCode: text('zip_code').notNull(),
-  email: text('email').notNull().unique(),
-  phoneNumber: text('phone_number').notNull().unique(),
-  funeralHomeName: text('funeral_home_name').notNull(),
+// Tables
+export const admin = pgTable('admin', {
+  adminId: uuid('id').primaryKey(),
   firstName: text('first_name').notNull(),
   lastName: text('last_name').notNull(),
+  email: text('email').notNull().unique(),
+  password: text('password').notNull(),
   createdAt: timestamp('created_at'),
   updatedAt: timestamp('updated_at'),
 });
@@ -45,10 +40,24 @@ export const formResponse = pgTable('form_response', {
   updatedAt: timestamp('updated_at'),
 });
 
-export const funeralHomeRelations = relations(funeralHome, ({ many }) => ({
-  customers: many(customer),
-}));
+export const funeralHome = pgTable('funeral_home', {
+  funeralHomeId: uuid('id').primaryKey(),
+  addressLine1: text('address_line_1').notNull(),
+  addressLine2: text('address_line_2'),
+  city: text('city').notNull(),
+  state: text('state').notNull(),
+  zipCode: text('zip_code').notNull(),
+  email: text('email').notNull().unique(),
+  password: text('password').notNull(),
+  phoneNumber: text('phone_number').notNull().unique(),
+  funeralHomeName: text('funeral_home_name').notNull(),
+  firstName: text('first_name').notNull(),
+  lastName: text('last_name').notNull(),
+  createdAt: timestamp('created_at'),
+  updatedAt: timestamp('updated_at'),
+});
 
+// Relations
 export const customerRelations = relations(customer, ({ one, many }) => ({
   funeralHome: one(funeralHome),
   responses: many(formResponse),
@@ -56,4 +65,8 @@ export const customerRelations = relations(customer, ({ one, many }) => ({
 
 export const formResponseRelations = relations(formResponse, ({ one }) => ({
   customer: one(customer),
+}));
+
+export const funeralHomeRelations = relations(funeralHome, ({ many }) => ({
+  customers: many(customer),
 }));

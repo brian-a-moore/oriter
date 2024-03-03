@@ -2,7 +2,6 @@
 
 ## Overview
 
-
 ## Requirements
 
 - You need to create a `.env` file based on the `.env.template` file

@@ -37,6 +37,7 @@ export const TIME = Joi.string()
   .min(5)
   .max(5)
   .regex(/^\d{2}:\d{2}$/);
+export const TOKEN = Joi.string().regex(/^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$/);
 export const YEAR = Joi.number().integer().min(1900).max(2100);
 export const ZIP_CODE = Joi.string()
   .length(5)

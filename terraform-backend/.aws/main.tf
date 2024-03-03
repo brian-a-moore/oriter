@@ -124,8 +124,8 @@ resource "aws_iam_role_policy" "lambda_access" {
 }
 
 # LAMBDA
-resource "aws_lambda_function" "oriter_form_submission" {
-  function_name    = "oriter_form_submission"
+resource "aws_lambda_function" "oriter_api" {
+  function_name    = "oriter_api"
   handler          = "index.handler"
   runtime          = "nodejs18.x"
   role             = aws_iam_role.lambda_role.arn
@@ -149,7 +149,7 @@ resource "aws_lambda_function" "oriter_form_submission" {
 resource "aws_lambda_permission" "apigw" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.oriter_form_submission.function_name
+  function_name = aws_lambda_function.oriter_api.function_name
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*"
@@ -158,7 +158,7 @@ resource "aws_lambda_permission" "apigw" {
 # API Gateway
 resource "aws_api_gateway_rest_api" "api" {
   name        = "oriter_api"
-  description = "API for Oriter form submission"
+  description = "API for Oriter"
 }
 
 resource "aws_api_gateway_resource" "resource" {
@@ -181,7 +181,7 @@ resource "aws_api_gateway_integration" "integration" {
 
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.oriter_form_submission.invoke_arn
+  uri                     = aws_lambda_function.oriter_api.invoke_arn
 }
 
 resource "aws_api_gateway_deployment" "deployment" {

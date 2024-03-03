@@ -2,7 +2,10 @@ import { EMPTY_OBJECT, OBJECT, RESOURCE_ID } from '../config/constants/schemas';
 import { bioPage, educationPage, employmentPage, familyPage, infoPage, servicePage } from './form/page';
 
 export const create = OBJECT({
-  query: EMPTY_OBJECT,
+  query: OBJECT({
+    customerId: RESOURCE_ID.required(),
+    responseId: RESOURCE_ID.required(),
+  }),
   body: OBJECT({
     bio: bioPage,
     education: educationPage,
