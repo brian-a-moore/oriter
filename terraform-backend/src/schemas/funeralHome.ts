@@ -1,12 +1,12 @@
 import { EMPTY_OBJECT, OBJECT, PHONE_NUMBER, STATE, STR_LONG, STR_MED, ZIP_CODE } from '../config/constants/schemas';
 
 export const get = OBJECT({
-  query: EMPTY_OBJECT,
+  params: EMPTY_OBJECT,
   body: EMPTY_OBJECT,
 });
 
 export const update = OBJECT({
-  query: EMPTY_OBJECT,
+  params: EMPTY_OBJECT,
   body: OBJECT({
     addressLine1: STR_LONG.required(),
     addressLine2: STR_MED,

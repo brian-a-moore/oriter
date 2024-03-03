@@ -11,7 +11,7 @@ import {
 } from '../../config/constants/schemas';
 
 export const create = OBJECT({
-  query: EMPTY_OBJECT,
+  params: EMPTY_OBJECT,
   body: OBJECT({
     addressLine1: STR_LONG.required(),
     addressLine2: STR_MED,
@@ -27,26 +27,26 @@ export const create = OBJECT({
 });
 
 export const get = OBJECT({
-  query: OBJECT({
+  params: OBJECT({
     funeralHomeId: RESOURCE_ID.required(),
   }),
   body: EMPTY_OBJECT,
 });
 
 export const list = OBJECT({
-  query: EMPTY_OBJECT,
+  params: EMPTY_OBJECT,
   body: EMPTY_OBJECT,
 });
 
 export const remove = OBJECT({
-  query: OBJECT({
+  params: OBJECT({
     funeralHomeId: RESOURCE_ID.required(),
   }),
   body: EMPTY_OBJECT,
 });
 
 export const update = OBJECT({
-  query: OBJECT({
+  params: OBJECT({
     funeralHomeId: RESOURCE_ID.required(),
   }),
   body: OBJECT({
