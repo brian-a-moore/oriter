@@ -4,36 +4,58 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-# DYNAMODB
-resource "aws_dynamodb_table" "oriter_database" {
-  name           = "oriter_database"
-  hash_key       = "PK"
-  range_key      = "SK"
-  read_capacity  = 20
-  write_capacity = 20
+# RANDOM
+resource "random_password" "db_password" {
+  length           = 16
+  special          = true
+  override_special = "_%@"
 
-  attribute {
-    name = "PK"
-    type = "S"
+  lifecycle {
+    ignore_changes = [result]
   }
+}
 
-  attribute {
-    name = "SK"
-    type = "S"
-  }
+resource "random_string" "jwt_secret" {
+  length  = 32
+  special = false
+}
 
-    attribute {
-    name = "email"
-    type = "S"
-  }
+# RDS
+resource "aws_db_instance" "oriter_database" {
+  allocated_storage    = 20
+  storage_type         = "gp2"
+  engine               = "postgres"
+  engine_version       = "13.3"
+  instance_class       = "db.t2.micro"
+  identifier           = "oriter-database"
+  username             = "oriter"
+  password             = random_password.db_password.result
+  parameter_group_name = "default.postgres13"
+  skip_final_snapshot  = true
 
-  global_secondary_index {
-    name               = "EmailIndex"
-    hash_key           = "email"
-    projection_type    = "ALL"
-    read_capacity      = 20
-    write_capacity     = 20
+  lifecycle {
+    ignore_changes = [password]
   }
+}
+
+# SECRETS
+resource "aws_secretsmanager_secret" "jwt_secret" {
+  name = "jwtsecret"
+}
+
+resource "aws_secretsmanager_secret" "db_password" {
+  name = "oriter_database_password"
+}
+
+resource "aws_secretsmanager_secret_version" "jwt_secret" {
+  secret_id     = aws_secretsmanager_secret.jwt_secret.id
+  secret_string = random_string.jwt_secret.result
+}
+
+resource "aws_secretsmanager_secret_version" "db_password" {
+  secret_id     = aws_secretsmanager_secret.db_password.id
+  secret_string = random_password.db_password.result
+
 }
 
 # S3
@@ -86,13 +108,13 @@ resource "aws_iam_role_policy" "lambda_access" {
     Statement = [
       {
         Action = [
-          "dynamodb:*",
+          "rds:*",
           "s3:*"
         ]
         Resource = [
-          aws_dynamodb_table.oriter_database.arn,
-          aws_s3_bucket.oriter_customer_images.arn
-        ]
+          "arn:aws:rds:us-east-1:${data.aws_caller_identity.current.account_id}:db:${aws_db_instance.oriter_database.identifier}",
+          aws_s3_bucket.oriter_customer_images.arn,
+        ]     
         Effect = "Allow"
       },
     ]
@@ -108,6 +130,16 @@ resource "aws_lambda_function" "oriter_form_submission" {
   s3_bucket        = aws_s3_bucket.oriter_lambda_code.bucket
   s3_key           = "oriter_code.zip"
   source_code_hash = filebase64sha256("../oriter_code.zip")
+
+  environment {
+    variables = {
+      JWT_SECRET = aws_secretsmanager_secret_version.jwt_secret.secret_string
+      DB_PASSWORD = aws_secretsmanager_secret_version.db_password.secret_string
+      DB_HOST = aws_db_instance.oriter_database.address
+      DB_USER = aws_db_instance.oriter_database.username
+      DB_NAME = aws_db_instance.oriter_database.identifier
+    }
+  }
 
   depends_on = [aws_s3_bucket_object.object]
 }
