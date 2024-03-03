@@ -4,11 +4,13 @@ provider "aws" {
   region  = "us-east-1"
 }
 
+data "aws_caller_identity" "current" {}
+
 # RANDOM
 resource "random_password" "db_password" {
   length           = 16
   special          = true
-  override_special = "_%@"
+  override_special = "_%"
 
   lifecycle {
     ignore_changes = [result]
@@ -25,12 +27,12 @@ resource "aws_db_instance" "oriter_database" {
   allocated_storage    = 20
   storage_type         = "gp2"
   engine               = "postgres"
-  engine_version       = "13.3"
-  instance_class       = "db.t2.micro"
+  engine_version       = "16.1"
+  instance_class       = "db.t3.micro"
   identifier           = "oriter-database"
   username             = "oriter"
   password             = random_password.db_password.result
-  parameter_group_name = "default.postgres13"
+  parameter_group_name = "default.postgres16"
   skip_final_snapshot  = true
 
   lifecycle {

@@ -6,7 +6,7 @@ echo "Deploy starting..."
 npm run build
 
 # Run Drizzle migration
-npx drizzle-kit migrate up
+# npx drizzle-kit migrate up
 
 # Run the deploy command
 cd .aws && terraform apply -auto-approve

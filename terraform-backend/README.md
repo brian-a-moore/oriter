@@ -1,11 +1,27 @@
 # Backend
 
+## Overview
+
+
+## Requirements
+
+- You need to create a `.env` file based on the `.env.template` file
+- You also need to add the `oriter` profile to your local AWS configuration
+
+### Example
+
+```
+[oriter]
+    aws_access_key_id = <YOUR AWS ACCESS KEY ID>
+    aws_secret_access_key = <YOUR AWS SECRET ACCESS KEY>
+```
+
 ## Terraform
 
 - Run `terraform init` to initialize your Terraform project.
 - Run `terraform apply` to create the resources.
 
-## Script
+## Deploying
 
 - `chmod +x deploy.sh`
 
