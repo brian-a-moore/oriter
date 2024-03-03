@@ -9,3 +9,4 @@ package-lock.json
 *.tfstate.backup
 .aws-sam
 .env
+.env.local

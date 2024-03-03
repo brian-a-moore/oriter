@@ -1,8 +1,6 @@
 import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
-import { APIGatewayProxyEvent, Context } from 'aws-lambda';
-import serverless from 'aws-serverless-express';
 import routes from './routes';
 import { ENV_TYPE } from './config/constants';
 
@@ -26,8 +24,3 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/', routes);
 
-const server = serverless.createServer(app);
-
-export const handler = (event: APIGatewayProxyEvent, context: Context) => {
-  serverless.proxy(server, event, context);
-};
