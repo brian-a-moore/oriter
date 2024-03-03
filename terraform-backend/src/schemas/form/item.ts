@@ -7,7 +7,7 @@ import {
   STATE,
   STR_SHORT,
   YEAR,
-} from '../../config/constants/schemas';
+} from '../../constants/schemas';
 
 export const childItem = OBJECT({
   id: RESOURCE_ID,

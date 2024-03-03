@@ -10,8 +10,8 @@ import {
   STR_SHORT,
   TIME,
   YEAR,
-} from '../../config/constants/schemas';
-import { IncidentLocation, MilitaryBranch } from '../../config/types/enums';
+} from '../../constants/schemas';
+import { IncidentLocation, MilitaryBranch } from '../../types/enums';
 import { institutionItem, organizationItem, employerItem, childItem, siblingItem, friendItem } from './item';
 
 export const bioPage = OBJECT({

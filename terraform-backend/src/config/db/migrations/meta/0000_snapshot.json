@@ -1,9 +1,69 @@
 {
-  "id": "5ec5ee83-6df9-47b3-8cbe-d23b162b8050",
+  "id": "b2249693-e093-4f4d-a68c-7d0f050de48e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
   "tables": {
+    "admin": {
+      "name": "admin",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "admin_email_unique": {
+          "name": "admin_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      }
+    },
     "customer": {
       "name": "customer",
       "schema": "",
@@ -63,8 +123,12 @@
           "name": "customer_funeral_home_id_funeral_home_id_fk",
           "tableFrom": "customer",
           "tableTo": "funeral_home",
-          "columnsFrom": ["funeral_home_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "funeral_home_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -74,12 +138,16 @@
         "customer_email_unique": {
           "name": "customer_email_unique",
           "nullsNotDistinct": false,
-          "columns": ["email"]
+          "columns": [
+            "email"
+          ]
         },
         "customer_phone_number_unique": {
           "name": "customer_phone_number_unique",
           "nullsNotDistinct": false,
-          "columns": ["phone_number"]
+          "columns": [
+            "phone_number"
+          ]
         }
       }
     },
@@ -154,8 +222,12 @@
           "name": "form_response_customer_id_customer_id_fk",
           "tableFrom": "form_response",
           "tableTo": "customer",
-          "columnsFrom": ["customer_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "customer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -209,6 +281,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
         "phone_number": {
           "name": "phone_number",
           "type": "text",
@@ -253,12 +331,16 @@
         "funeral_home_email_unique": {
           "name": "funeral_home_email_unique",
           "nullsNotDistinct": false,
-          "columns": ["email"]
+          "columns": [
+            "email"
+          ]
         },
         "funeral_home_phone_number_unique": {
           "name": "funeral_home_phone_number_unique",
           "nullsNotDistinct": false,
-          "columns": ["phone_number"]
+          "columns": [
+            "phone_number"
+          ]
         }
       }
     }

@@ -1,4 +1,4 @@
-import { EMAIL, EMPTY_OBJECT, OBJECT, RESOURCE_ID, STR_LONG, STR_MED } from '../../config/constants/schemas';
+import { EMAIL, EMPTY_OBJECT, OBJECT, RESOURCE_ID, STR_LONG, STR_MED } from '../../constants/schemas';
 
 export const create = OBJECT({
   params: EMPTY_OBJECT,

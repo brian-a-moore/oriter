@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { verifyToken } from '../config/jwt';
-import { STATUS_CODE } from '../config/constants';
+import { verifyToken } from '../utils/jwt';
+import { STATUS_CODE } from '../constants';
+import { db } from '../config/db';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   const authorization = req.headers.authorization;
@@ -9,7 +10,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
   console.debug('AUTHORIZATION MIDDLEWARE: Route ID', routeId);
 
   try {
-    if (routeId.includes('-auth')) {
+    if (routeId.includes('-fooba')) {
       console.debug('AUTHORIZATION MIDDLEWARE: Bypassed');
       next();
     } else if (!authorization) {
@@ -19,11 +20,19 @@ export default async (req: Request, res: Response, next: NextFunction) => {
       if (type === 'Bearer') {
         const decodedData = verifyToken(data);
 
-        console.debug('AUTHORIZATION MIDDLEWARE: Decoded Data', decodedData);
+        const id = decodedData.id;
+       
+        let records;
 
-        const count = 0;
-        if (count > 0) {
-          // req.userId = decodedData.userId;
+        if(req.body.isAdmin) {
+          records = await db.query.admin.findMany({ where:((admins, { eq }) => eq(admins.adminId, id)) });
+        } else {
+          records = await db.query.funeralHome.findMany({ where:((funeralHomes, { eq }) => eq(funeralHomes.funeralHomeId, id)) });
+        }
+      
+        if (records.length > 0) { 
+
+          console.debug('AUTHORIZATION MIDDLEWARE: Account found -- Continuing...');
           next();
         } else {
           throw new Error('AUTHORIZATION MIDDLEWARE: Account not found');
@@ -35,6 +44,5 @@ export default async (req: Request, res: Response, next: NextFunction) => {
   } catch (e: any | unknown) {
     console.error(e.message);
     res.sendStatus(STATUS_CODE.NO_AUTH);
-    next(e);
   }
 };

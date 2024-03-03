@@ -1,3 +1,14 @@
+CREATE TABLE IF NOT EXISTS "admin" (
+	"id" uuid PRIMARY KEY NOT NULL,
+	"first_name" text NOT NULL,
+	"last_name" text NOT NULL,
+	"email" text NOT NULL,
+	"password" text NOT NULL,
+	"created_at" timestamp,
+	"updated_at" timestamp,
+	CONSTRAINT "admin_email_unique" UNIQUE("email")
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "customer" (
 	"id" uuid PRIMARY KEY NOT NULL,
 	"funeral_home_id" uuid NOT NULL,
@@ -32,6 +43,7 @@ CREATE TABLE IF NOT EXISTS "funeral_home" (
 	"state" text NOT NULL,
 	"zip_code" text NOT NULL,
 	"email" text NOT NULL,
+	"password" text NOT NULL,
 	"phone_number" text NOT NULL,
 	"funeral_home_name" text NOT NULL,
 	"first_name" text NOT NULL,

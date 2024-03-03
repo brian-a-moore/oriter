@@ -8,7 +8,7 @@ import {
   STR_LONG,
   STR_MED,
   ZIP_CODE,
-} from '../../config/constants/schemas';
+} from '../../constants/schemas';
 
 export const create = OBJECT({
   params: EMPTY_OBJECT,

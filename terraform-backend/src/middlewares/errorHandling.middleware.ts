@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { STATUS_CODE } from '../config/constants';
+import { STATUS_CODE } from '../constants';
 
 export default (err: any | unknown, req: Request, res: Response, next: NextFunction) => {
   if (!err) {

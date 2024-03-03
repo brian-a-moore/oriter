@@ -1,6 +1,6 @@
 import http from 'http';
 import { app } from './app';
-import { DEFAULT_PORT } from './config/constants';
+import { DEFAULT_PORT } from './constants';
 
 const { PORT = DEFAULT_PORT } = process.env;
 

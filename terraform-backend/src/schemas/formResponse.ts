@@ -1,4 +1,4 @@
-import { EMPTY_OBJECT, OBJECT, RESOURCE_ID } from '../config/constants/schemas';
+import { EMPTY_OBJECT, OBJECT, RESOURCE_ID } from '../constants/schemas';
 import { bioPage, educationPage, employmentPage, familyPage, infoPage, servicePage } from './form/page';
 
 export const create = OBJECT({

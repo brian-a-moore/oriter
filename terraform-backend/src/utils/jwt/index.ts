@@ -7,7 +7,7 @@ export interface DecodedData extends JwtPayload {
   userId: string;
 }
 
-export const createToken = (encodedData: { funeralHomeId: string }) => {
+export const createToken = (encodedData: { id: string }) => {
   try {
     return jwt.sign(encodedData, JWT_SECRET as string, { expiresIn: EXP_TIME });
   } catch (e: any | unknown) {

@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { EMAIL, EMPTY_OBJECT, OBJECT, RESOURCE_ID, STR_LONG, TOKEN } from '../config/constants/schemas';
+import { EMAIL, EMPTY_OBJECT, OBJECT, RESOURCE_ID, STR_LONG, TOKEN } from '../constants/schemas';
 
 export const login = OBJECT({
   params: EMPTY_OBJECT,

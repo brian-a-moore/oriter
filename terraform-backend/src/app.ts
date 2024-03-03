@@ -2,7 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
 import routes from './routes';
-import { ENV_TYPE } from './config/constants';
+import { ENV_TYPE } from './constants';
 import errorHandlingMiddleware from './middlewares/errorHandling.middleware';
 import authorizorMiddleware from './middlewares/authorizor.middleware';
 

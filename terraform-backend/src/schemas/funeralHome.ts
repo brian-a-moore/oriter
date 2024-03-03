@@ -1,4 +1,4 @@
-import { EMPTY_OBJECT, OBJECT, PHONE_NUMBER, STATE, STR_LONG, STR_MED, ZIP_CODE } from '../config/constants/schemas';
+import { EMPTY_OBJECT, OBJECT, PHONE_NUMBER, STATE, STR_LONG, STR_MED, ZIP_CODE } from '../constants/schemas';
 
 export const get = OBJECT({
   params: EMPTY_OBJECT,
