@@ -1,32 +1,32 @@
 import { relations } from 'drizzle-orm';
-import { json, text, timestamp, pgTable, uuid } from 'drizzle-orm/pg-core';
+import { json, text, timestamp, pgTable, uuid, varchar } from 'drizzle-orm/pg-core';
 
 // Tables
 export const admin = pgTable('admin', {
-  adminId: uuid('id').primaryKey(),
-  firstName: text('first_name').notNull(),
-  lastName: text('last_name').notNull(),
-  email: text('email').notNull().unique(),
+  adminId: uuid('admin_id').primaryKey(),
+  firstName: varchar('first_name', { length: 128 }).notNull(),
+  lastName: varchar('last_name', { length: 128 }).notNull(),
+  email: varchar('email', { length: 64 }).unique().notNull(),
   password: text('password').notNull(),
   createdAt: timestamp('created_at'),
   updatedAt: timestamp('updated_at'),
 });
 
 export const customer = pgTable('customer', {
-  customerId: uuid('id').primaryKey(),
+  customerId: uuid('customer_id').primaryKey(),
   funeralHomeId: uuid('funeral_home_id')
     .references(() => funeralHome.funeralHomeId)
     .notNull(),
-  firstName: text('first_name').notNull(),
-  lastName: text('last_name').notNull(),
-  email: text('email').notNull().unique(),
-  phoneNumber: text('phone_number').notNull().unique(),
+  firstName: varchar('first_name', { length: 128 }).notNull(),
+  lastName: varchar('last_name', { length: 128 }).notNull(),
+  email: varchar('email', { length: 64 }).unique().notNull(),
+  phoneNumber: varchar('phone_number', { length: 10 }).unique().notNull(),
   createdAt: timestamp('created_at'),
   updatedAt: timestamp('updated_at'),
 });
 
 export const formResponse = pgTable('form_response', {
-  responseId: uuid('id').primaryKey(),
+  responseId: uuid('response_id').primaryKey(),
   customerId: uuid('customer_id')
     .references(() => customer.customerId)
     .notNull(),
@@ -41,30 +41,36 @@ export const formResponse = pgTable('form_response', {
 });
 
 export const funeralHome = pgTable('funeral_home', {
-  funeralHomeId: uuid('id').primaryKey(),
-  addressLine1: text('address_line_1').notNull(),
-  addressLine2: text('address_line_2'),
-  city: text('city').notNull(),
-  state: text('state').notNull(),
-  zipCode: text('zip_code').notNull(),
-  email: text('email').notNull().unique(),
+  funeralHomeId: uuid('funeral_home_id').primaryKey(),
+  addressLine1: varchar('address_line_1', { length: 256 }).notNull(),
+  addressLine2: varchar('address_line_2', { length: 128 }),
+  city: varchar('city', { length: 128 }).notNull(),
+  state: varchar('state', { length: 2 }).notNull(),
+  zipCode: varchar('zip_code', { length: 5 }).notNull(),
+  email: varchar('email', { length: 64 }).unique().notNull(),
   password: text('password').notNull(),
-  phoneNumber: text('phone_number').notNull().unique(),
-  funeralHomeName: text('funeral_home_name').notNull(),
-  firstName: text('first_name').notNull(),
-  lastName: text('last_name').notNull(),
+  phoneNumber: varchar('phone_number', { length: 10 }).unique().notNull(),
+  funeralHomeName: varchar('funeral_home_name', { length: 256 }).notNull(),
+  firstName: varchar('first_name', { length: 128 }).notNull(),
+  lastName: varchar('last_name', { length: 128 }).notNull(),
   createdAt: timestamp('created_at'),
   updatedAt: timestamp('updated_at'),
 });
 
 // Relations
 export const customerRelations = relations(customer, ({ one, many }) => ({
-  funeralHome: one(funeralHome),
+  funeralHome: one(funeralHome, {
+    fields: [customer.funeralHomeId],
+    references: [funeralHome.funeralHomeId],
+  }),
   responses: many(formResponse),
 }));
 
 export const formResponseRelations = relations(formResponse, ({ one }) => ({
-  customer: one(customer),
+  customer: one(customer, {
+    fields: [formResponse.customerId],
+    references: [customer.customerId],
+  }),
 }));
 
 export const funeralHomeRelations = relations(funeralHome, ({ many }) => ({

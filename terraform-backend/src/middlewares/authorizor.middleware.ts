@@ -1,16 +1,17 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { verifyToken } from '../utils/jwt';
 import { STATUS_CODE } from '../constants';
 import { db } from '../config/db';
+import { OriterRequest } from '../types';
 
-export default async (req: Request, res: Response, next: NextFunction) => {
+export default async (req: OriterRequest, res: Response, next: NextFunction) => {
   const authorization = req.headers.authorization;
   const routeId = req.method.replace(/\//g, '-') + req.originalUrl.replace(/\//g, '-');
 
   console.debug('AUTHORIZATION MIDDLEWARE: Route ID', routeId);
 
   try {
-    if (routeId.includes('-fooba')) {
+    if (routeId.includes('-auth')) {
       console.debug('AUTHORIZATION MIDDLEWARE: Bypassed');
       next();
     } else if (!authorization) {
@@ -30,7 +31,15 @@ export default async (req: Request, res: Response, next: NextFunction) => {
           records = await db.query.funeralHome.findMany({ where:((funeralHomes, { eq }) => eq(funeralHomes.funeralHomeId, id)) });
         }
       
-        if (records.length > 0) { 
+        if (records.length > 0) {
+
+          req.id = id;
+          
+          if((req.body as any).isAdmin) {
+            req.isAdmin = true;
+          } else {
+            req.isAdmin = false;
+          }
 
           console.debug('AUTHORIZATION MIDDLEWARE: Account found -- Continuing...');
           next();

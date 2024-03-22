@@ -1,7 +1,8 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { STATUS_CODE } from '../constants';
+import { OriterRequest } from '../types';
 
-export default (err: any | unknown, req: Request, res: Response, next: NextFunction) => {
+export default (err: any | unknown, req: OriterRequest, res: Response, next: NextFunction) => {
   if (!err) {
     console.debug('ERROR_HANDLING_MIDDLEWARE: No error found - Continuing...');
     return next();
