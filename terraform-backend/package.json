@@ -10,11 +10,12 @@
     "lint": "npx eslint .eslintrc --quiet --fix",
     "prettier": "npx prettier --config .prettierrc --write .",
     "test": "sam build && sam local invoke OriterFormSubmission",
-    "prisma:reset": "dotenv -e .env.local -- npx prisma migrate reset",
-    "prisma:migrate": "dotenv -e .env.local -- npx prisma migrate dev",
-    "prisma:generate": "dotenv -e .env.local -- npx prisma generate",
-    "prisma:seed": "dotenv -e .env.local -- npx prisma db seed",
-    "prisma:studio": "dotenv -e .env.local -- npx prisma studio"
+    "db:format": "npx prisma format",
+    "db:reset": "dotenv -e .env.local -- npx prisma migrate reset",
+    "db:migrate": "dotenv -e .env.local -- npx prisma migrate dev",
+    "db:generate": "dotenv -e .env.local -- npx prisma generate",
+    "db:seed": "dotenv -e .env.local -- npx prisma db seed",
+    "db:studio": "dotenv -e .env.local -- npx prisma studio"
   },
   "prisma": {
     "seed": "ts-node --transpile-only ./src/config/db/seed.ts"
@@ -37,7 +38,6 @@
     "aws-serverless-express": "^3.4.0",
     "bestzip": "^2.2.1",
     "dotenv": "^16.4.5",
-    "drizzle-kit": "^0.20.14",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
