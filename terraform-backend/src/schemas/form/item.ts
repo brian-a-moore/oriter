@@ -1,13 +1,5 @@
 import Joi from 'joi';
-import {
-  EDUCATION_LEVEL,
-  NUM_OF_YRS,
-  OBJECT,
-  RESOURCE_ID,
-  STATE,
-  STR_SHORT,
-  YEAR,
-} from '../../constants/schemas';
+import { EDUCATION_LEVEL, NUM_OF_YRS, OBJECT, RESOURCE_ID, STATE, STR_SHORT, YEAR } from '../../constants/schemas';
 
 export const childItem = OBJECT({
   id: RESOURCE_ID,

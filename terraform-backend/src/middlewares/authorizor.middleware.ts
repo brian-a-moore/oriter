@@ -22,20 +22,21 @@ export default async (req: OriterRequest, res: Response, next: NextFunction) => 
         const decodedData = verifyToken(data);
 
         const id = decodedData.id;
-       
+
         let records;
 
-        if(req.body.isAdmin) {
-          records = await db.query.admin.findMany({ where:((admins, { eq }) => eq(admins.adminId, id)) });
+        if (req.isAdmin) {
+          records = await db.query.admin.findMany({ where: (admins, { eq }) => eq(admins.adminId, id) });
         } else {
-          records = await db.query.funeralHome.findMany({ where:((funeralHomes, { eq }) => eq(funeralHomes.funeralHomeId, id)) });
+          records = await db.query.funeralHome.findMany({
+            where: (funeralHomes, { eq }) => eq(funeralHomes.funeralHomeId, id),
+          });
         }
-      
-        if (records.length > 0) {
 
+        if (records.length > 0) {
           req.id = id;
-          
-          if((req.body as any).isAdmin) {
+
+          if ((req.body as any).isAdmin) {
             req.isAdmin = true;
           } else {
             req.isAdmin = false;

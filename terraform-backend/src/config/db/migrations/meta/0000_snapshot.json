@@ -1,5 +1,5 @@
 {
-  "id": "b2249693-e093-4f4d-a68c-7d0f050de48e",
+  "id": "8ea00a2e-d0ff-40c4-9fdc-5fc3d3f450b9",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -8,27 +8,27 @@
       "name": "admin",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
+        "admin_id": {
+          "name": "admin_id",
           "type": "uuid",
           "primaryKey": true,
           "notNull": true
         },
         "first_name": {
           "name": "first_name",
-          "type": "text",
+          "type": "varchar(128)",
           "primaryKey": false,
           "notNull": true
         },
         "last_name": {
           "name": "last_name",
-          "type": "text",
+          "type": "varchar(128)",
           "primaryKey": false,
           "notNull": true
         },
         "email": {
           "name": "email",
-          "type": "text",
+          "type": "varchar(64)",
           "primaryKey": false,
           "notNull": true
         },
@@ -58,9 +58,7 @@
         "admin_email_unique": {
           "name": "admin_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         }
       }
     },
@@ -68,8 +66,8 @@
       "name": "customer",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
+        "customer_id": {
+          "name": "customer_id",
           "type": "uuid",
           "primaryKey": true,
           "notNull": true
@@ -82,25 +80,25 @@
         },
         "first_name": {
           "name": "first_name",
-          "type": "text",
+          "type": "varchar(128)",
           "primaryKey": false,
           "notNull": true
         },
         "last_name": {
           "name": "last_name",
-          "type": "text",
+          "type": "varchar(128)",
           "primaryKey": false,
           "notNull": true
         },
         "email": {
           "name": "email",
-          "type": "text",
+          "type": "varchar(64)",
           "primaryKey": false,
           "notNull": true
         },
         "phone_number": {
           "name": "phone_number",
-          "type": "text",
+          "type": "varchar(10)",
           "primaryKey": false,
           "notNull": true
         },
@@ -119,16 +117,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "customer_funeral_home_id_funeral_home_id_fk": {
-          "name": "customer_funeral_home_id_funeral_home_id_fk",
+        "customer_funeral_home_id_funeral_home_funeral_home_id_fk": {
+          "name": "customer_funeral_home_id_funeral_home_funeral_home_id_fk",
           "tableFrom": "customer",
           "tableTo": "funeral_home",
-          "columnsFrom": [
-            "funeral_home_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["funeral_home_id"],
+          "columnsTo": ["funeral_home_id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -138,16 +132,12 @@
         "customer_email_unique": {
           "name": "customer_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         },
         "customer_phone_number_unique": {
           "name": "customer_phone_number_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "phone_number"
-          ]
+          "columns": ["phone_number"]
         }
       }
     },
@@ -155,8 +145,8 @@
       "name": "form_response",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
+        "response_id": {
+          "name": "response_id",
           "type": "uuid",
           "primaryKey": true,
           "notNull": true
@@ -218,16 +208,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "form_response_customer_id_customer_id_fk": {
-          "name": "form_response_customer_id_customer_id_fk",
+        "form_response_customer_id_customer_customer_id_fk": {
+          "name": "form_response_customer_id_customer_customer_id_fk",
           "tableFrom": "form_response",
           "tableTo": "customer",
-          "columnsFrom": [
-            "customer_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["customer_id"],
+          "columnsTo": ["customer_id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -239,45 +225,45 @@
       "name": "funeral_home",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
+        "funeral_home_id": {
+          "name": "funeral_home_id",
           "type": "uuid",
           "primaryKey": true,
           "notNull": true
         },
         "address_line_1": {
           "name": "address_line_1",
-          "type": "text",
+          "type": "varchar(256)",
           "primaryKey": false,
           "notNull": true
         },
         "address_line_2": {
           "name": "address_line_2",
-          "type": "text",
+          "type": "varchar(128)",
           "primaryKey": false,
           "notNull": false
         },
         "city": {
           "name": "city",
-          "type": "text",
+          "type": "varchar(128)",
           "primaryKey": false,
           "notNull": true
         },
         "state": {
           "name": "state",
-          "type": "text",
+          "type": "varchar(2)",
           "primaryKey": false,
           "notNull": true
         },
         "zip_code": {
           "name": "zip_code",
-          "type": "text",
+          "type": "varchar(5)",
           "primaryKey": false,
           "notNull": true
         },
         "email": {
           "name": "email",
-          "type": "text",
+          "type": "varchar(64)",
           "primaryKey": false,
           "notNull": true
         },
@@ -289,25 +275,25 @@
         },
         "phone_number": {
           "name": "phone_number",
-          "type": "text",
+          "type": "varchar(10)",
           "primaryKey": false,
           "notNull": true
         },
         "funeral_home_name": {
           "name": "funeral_home_name",
-          "type": "text",
+          "type": "varchar(256)",
           "primaryKey": false,
           "notNull": true
         },
         "first_name": {
           "name": "first_name",
-          "type": "text",
+          "type": "varchar(128)",
           "primaryKey": false,
           "notNull": true
         },
         "last_name": {
           "name": "last_name",
-          "type": "text",
+          "type": "varchar(128)",
           "primaryKey": false,
           "notNull": true
         },
@@ -331,16 +317,12 @@
         "funeral_home_email_unique": {
           "name": "funeral_home_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         },
         "funeral_home_phone_number_unique": {
           "name": "funeral_home_phone_number_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "phone_number"
-          ]
+          "columns": ["phone_number"]
         }
       }
     }
