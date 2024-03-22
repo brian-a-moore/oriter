@@ -4,17 +4,31 @@ import { OriterRequest } from '../types';
 
 export default (err: any | unknown, req: OriterRequest, res: Response, next: NextFunction) => {
   if (!err) {
-    console.debug('ERROR_HANDLING_MIDDLEWARE: No error found - Continuing...');
+    console.debug({
+      routeId: req.routeId,
+      message: 'ERROR_HANDLING_MIDDLEWARE: No error found - Continuing...',
+    });
     return next();
   }
 
-  console.error('ERRROR_HANDLING_MIDDLEWARE:', err.message);
+  console.error({
+    routeId: req.routeId,
+    message: 'ERROR_HANDLING_MIDDLEWARE: Error found',
+    error: err.message,
+  });
 
   if (res.headersSent) {
-    console.debug('ERROR_HANDLING_MIDDLEWARE: Headers already sent - Continuing...');
+    console.debug({
+      routeId: req.routeId,
+      message: 'ERROR_HANDLING_MIDDLEWARE: Headers already sent - Continuing...',
+    });
     next();
   }
 
-  console.debug('ERROR_HANDLING_MIDDLEWARE: Sending status', err.status || STATUS_CODE.SERVER_ERROR);
+  console.debug({
+    routeId: req.routeId,
+    message: `ERROR_HANDLING_MIDDLEWARE: Sending status: ${err.status || STATUS_CODE.SERVER_ERROR}`,
+  });
+
   res.status(err.status || STATUS_CODE.SERVER_ERROR).send();
 };

@@ -22,22 +22,42 @@ const prisma = new PrismaClient({
 
 // @ts-ignore
 prisma.$on('query', (e: Prisma.QueryEvent) => {
-  console.debug(e);
+  console.debug({
+    message: 'PRISMA: Query',
+    query: e.query,
+    params: e.params,
+    duration: `${e.duration}ms`,
+  });
 });
 
 // @ts-ignore
 prisma.$on('info', (e: Prisma.QueryEvent) => {
-  console.info(e);
+  console.info({
+    message: 'PRISMA: Info',
+    query: e.query,
+    params: e.params,
+    duration: `${e.duration}ms`,
+  });
 });
 
 // @ts-ignore
 prisma.$on('warn', (e: Prisma.QueryEvent) => {
-  console.warn(e);
+  console.warn({
+    message: 'PRISMA: Warning',
+    query: e.query,
+    params: e.params,
+    duration: `${e.duration}ms`,
+  });
 });
 
 // @ts-ignore
 prisma.$on('error', (e: Prisma.QueryEvent) => {
-  console.error(e);
+  console.error({
+    message: 'PRISMA: Error',
+    query: e.query,
+    params: e.params,
+    duration: `${e.duration}ms`,
+  });
 });
 
 export default prisma;

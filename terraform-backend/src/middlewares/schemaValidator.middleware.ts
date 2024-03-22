@@ -14,11 +14,18 @@ export default (schema: ObjectSchema) => {
       req.query = query;
       req.body = body;
 
-      console.debug('SCHEMA_VALIDATOR_MIDDLEWARE: Validation passed - Continuing...');
+      console.debug({
+        routeId: req.routeId,
+        message: 'SCHEMA_VALIDATOR_MIDDLEWARE: Validation passed - Continuing...',
+      });
 
       next();
     } catch (e: any | unknown) {
-      console.error('SCHEMA_VALIDATOR_MIDDLEWARE: Validation Failed', e.message);
+      console.error({
+        routeId: req.routeId,
+        message: 'SCHEMA_VALIDATOR_MIDDLEWARE: Validation failed',
+        error: e.message,
+      });
       res.sendStatus(STATUS_CODE.BAD_INPUT);
     }
   };

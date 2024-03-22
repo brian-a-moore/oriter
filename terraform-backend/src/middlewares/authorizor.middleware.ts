@@ -1,17 +1,15 @@
 import { NextFunction, Response } from 'express';
 import { verifyToken } from '../utils/jwt';
 import { STATUS_CODE } from '../constants';
-import { db } from '../config/old';
+import db from '../config/db';
 import { OriterRequest } from '../types';
 
 export default async (req: OriterRequest, res: Response, next: NextFunction) => {
   const authorization = req.headers.authorization;
 
-  console.debug('AUTHORIZATION MIDDLEWARE: Route ID', req.routeId);
-
   try {
     if (req.routeId!.includes('-auth')) {
-      console.debug('AUTHORIZATION MIDDLEWARE: Bypassed');
+      console.debug({ routeId: req.routeId, message: 'AUTHORIZATION MIDDLEWARE: Bypassed' });
       next();
     } else if (!authorization) {
       throw new Error('AUTHORIZATION MIDDLEWARE: Authorization not provided');
@@ -22,18 +20,16 @@ export default async (req: OriterRequest, res: Response, next: NextFunction) => 
 
         const id = decodedData.id;
 
-        let records;
+        let count;
 
         if (decodedData.isAdmin) {
-          records = await db.query.admin.findMany({ where: (admins, { eq }) => eq(admins.adminId, id) });
+          count = await db.admin.count({ where: { adminId: id } });
         } else {
-          records = await db.query.funeralHome.findMany({
-            where: (funeralHomes, { eq }) => eq(funeralHomes.funeralHomeId, id),
-          });
+          count = await db.funeralHome.count({ where: { funeralHomeId: id } });
         }
 
-        if (records.length > 0) {
-          console.debug('AUTHORIZATION MIDDLEWARE: Account found -- Continuing...');
+        if (!count) {
+          console.debug({ routeId: req.routeId, message: 'AUTHORIZATION MIDDLEWARE: Account found -- Continuing...' });
           next();
         } else {
           throw new Error('AUTHORIZATION MIDDLEWARE: Account not found');
@@ -43,7 +39,11 @@ export default async (req: OriterRequest, res: Response, next: NextFunction) => 
       }
     }
   } catch (e: any | unknown) {
-    console.error(e.message);
+    console.error({
+      routeId: req.routeId,
+      message: 'AUTHORIZATION MIDDLEWARE: Authorization failed',
+      error: e.message,
+    });
     res.sendStatus(STATUS_CODE.NO_AUTH);
   }
 };

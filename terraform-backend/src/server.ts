@@ -7,5 +7,9 @@ const { PORT = DEFAULT_PORT } = process.env;
 http.createServer(app).listen(PORT, () => {
   const { APP_ENV, PORT } = process.env;
 
-  console.log(`API SERVER - Online [Port: ${PORT} | Environment: ${APP_ENV}]`);
+  console.log({
+    message: 'API SERVER - Online',
+    port: PORT,
+    environment: APP_ENV,
+  });
 });
