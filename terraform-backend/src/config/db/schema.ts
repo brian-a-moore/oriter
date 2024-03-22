@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { json, text, timestamp, pgTable, uuid, varchar } from 'drizzle-orm/pg-core';
+import { json, text, timestamp, pgTable, uuid, varchar, serial } from 'drizzle-orm/pg-core';
 
 // Tables
 export const admin = pgTable('admin', {
@@ -8,6 +8,10 @@ export const admin = pgTable('admin', {
   lastName: varchar('last_name', { length: 128 }).notNull(),
   email: varchar('email', { length: 64 }).unique().notNull(),
   password: text('password').notNull(),
+  question_id: serial('question_id')
+    .references(() => securityQuestions.questionId)
+    .notNull(),
+  question_response: text('question_response').notNull(),
   createdAt: timestamp('created_at'),
   updatedAt: timestamp('updated_at'),
 });
@@ -49,6 +53,10 @@ export const funeralHome = pgTable('funeral_home', {
   zipCode: varchar('zip_code', { length: 5 }).notNull(),
   email: varchar('email', { length: 64 }).unique().notNull(),
   password: text('password').notNull(),
+  question_id: serial('question_id')
+    .references(() => securityQuestions.questionId)
+    .notNull(),
+  question_response: text('question_response').notNull(),
   phoneNumber: varchar('phone_number', { length: 10 }).unique().notNull(),
   funeralHomeName: varchar('funeral_home_name', { length: 256 }).notNull(),
   firstName: varchar('first_name', { length: 128 }).notNull(),
@@ -57,7 +65,19 @@ export const funeralHome = pgTable('funeral_home', {
   updatedAt: timestamp('updated_at'),
 });
 
+export const securityQuestions = pgTable('security_questions', {
+  questionId: serial('question_id').primaryKey(),
+  question: varchar('question', { length: 256 }).notNull(),
+});
+
 // Relations
+export const adminRelations = relations(admin, ({ one }) => ({
+    securityQuestion: one(securityQuestions, {
+    fields: [admin.question_id],
+    references: [securityQuestions.questionId],
+  }),
+}));
+
 export const customerRelations = relations(customer, ({ one, many }) => ({
   funeralHome: one(funeralHome, {
     fields: [customer.funeralHomeId],
@@ -73,6 +93,15 @@ export const formResponseRelations = relations(formResponse, ({ one }) => ({
   }),
 }));
 
-export const funeralHomeRelations = relations(funeralHome, ({ many }) => ({
+export const funeralHomeRelations = relations(funeralHome, ({ many, one }) => ({
+  securityQuestion: one(securityQuestions, {
+    fields: [funeralHome.question_id],
+    references: [securityQuestions.questionId],
+  }),
   customers: many(customer),
+}));
+
+export const securityQuestionsRelations = relations(securityQuestions, ({ many }) => ({
+  admins: many(admin),
+  funeralHomes: many(funeralHome),
 }));

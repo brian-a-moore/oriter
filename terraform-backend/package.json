@@ -12,7 +12,9 @@
     "test": "sam build && sam local invoke OriterFormSubmission",
     "db:migrate": "npx drizzle-kit generate:pg",
     "db:push": "npx drizzle-kit push:pg",
-    "db:push:local": "dotenv -e .env.local -- npx drizzle-kit push:pg"
+    "db:push:local": "dotenv -e .env.local -- npx drizzle-kit push:pg",
+    "db:seed": "ts-node ./src/config/db/seeds/index.ts",
+    "db:seed:local": "dotenv -e .env.local -- ts-node ./src/config/db/seeds/index.ts"
   },
   "keywords": [],
   "author": "",
