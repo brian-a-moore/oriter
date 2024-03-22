@@ -15,6 +15,8 @@ export const updatePassword = OBJECT({
     funeralHomeId: RESOURCE_ID.required(),
   }),
   body: OBJECT({
+    questionId: Joi.number().min(1).max(99).required(),
+    answer: STR_LONG.required(),
     password: STR_LONG.required(),
   }),
 });
@@ -23,7 +25,7 @@ export const verifyLink = OBJECT({
   params: EMPTY_OBJECT,
   body: OBJECT({
     customerId: RESOURCE_ID.required(),
-    responseId: RESOURCE_ID.required(),
+    lovedOneId: RESOURCE_ID.required(),
   }),
 });
 

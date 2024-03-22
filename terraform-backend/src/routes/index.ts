@@ -2,7 +2,7 @@ import { Router } from 'express';
 import admin from './admin';
 import auth from './auth';
 import customer from './customer';
-import formResponse from './formResponse';
+import lovedOne from './lovedOne';
 import funeralHome from './funeralHome';
 
 const router = Router();
@@ -11,6 +11,6 @@ router.use('/admin', admin);
 router.use('/auth', auth);
 router.use('/funeral-home', funeralHome);
 router.use('/customer', customer);
-router.use('/response', formResponse);
+router.use('/loved-one', lovedOne);
 
 export default router;

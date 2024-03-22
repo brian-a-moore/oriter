@@ -4,7 +4,7 @@ import { bioPage, educationPage, employmentPage, familyPage, infoPage, servicePa
 export const create = OBJECT({
   params: OBJECT({
     customerId: RESOURCE_ID.required(),
-    responseId: RESOURCE_ID.required(),
+    lovedOneId: RESOURCE_ID.required(),
   }),
   body: OBJECT({
     bio: bioPage,
@@ -18,7 +18,7 @@ export const create = OBJECT({
 
 export const get = OBJECT({
   params: OBJECT({
-    responseId: RESOURCE_ID.required(),
+    lovedOneId: RESOURCE_ID.required(),
   }),
   body: EMPTY_OBJECT,
 });
@@ -30,7 +30,7 @@ export const list = OBJECT({
 
 export const remove = OBJECT({
   params: OBJECT({
-    responseId: RESOURCE_ID.required(),
+    lovedOneId: RESOURCE_ID.required(),
   }),
   body: EMPTY_OBJECT,
 });

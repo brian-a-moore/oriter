@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import { verifyToken } from '../utils/jwt';
 import { STATUS_CODE } from '../constants';
-import { db } from '../config/db';
+import { db } from '../config/old';
 import { OriterRequest } from '../types';
 
 export default async (req: OriterRequest, res: Response, next: NextFunction) => {

@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+    adminId                 String              @id @default(uuid())
+    firstName               String
+    lastName                String
+    email                   String              @unique
+    password                String
+    securityQuestion        SecurityQuestion    @relation(fields: [securityQuestionId], references: [securityQuestionId])
+    securityQuestionId      Int
+    securityAnswer          String
+    createdAt               DateTime            @default(now())
+    updatedAt               DateTime            @updatedAt
+
+    @@map("admins")
+}
+
+model Customer {
+    customerId          String          @id @default(uuid())
+    funeralHome         FuneralHome     @relation(fields: [funeralHomeId], references: [funeralHomeId])
+    funeralHomeId       String
+    firstName           String
+    lastName            String
+    email               String
+    phoneNumber         String
+    createdAt           DateTime         @default(now())
+    updatedAt           DateTime         @updatedAt
+    lovedOnes           LovedOne[]
+
+    @@map("customers")
+}
+
+model LovedOne {
+    lovedOneId          String          @id @default(uuid())
+    customer            Customer        @relation(fields: [customerId], references: [customerId])
+    customerId          String
+    bio                 Json
+    education           Json
+    employment          Json
+    family              Json
+    info                Json
+    service             Json
+    createdAt           DateTime        @default(now())
+    updatedAt           DateTime        @updatedAt
+
+    @@map("loved_ones")
+}
+
+model FuneralHome {
+    funeralHomeId       String              @id @default(uuid())
+    addressLine1        String
+    addressLine2        String?
+    city                String
+    state               String
+    zipCode             String
+    email               String              @unique
+    password            String
+    securityQuestion    SecurityQuestion    @relation(fields: [securityQuestionId], references: [securityQuestionId])
+    securityQuestionId  Int
+    securityAnswer      String
+    phoneNumber         String              @unique
+    funeralHomeName     String
+    firstName           String
+    lastName            String
+    createdAt           DateTime            @default(now())
+    updatedAt           DateTime            @updatedAt
+    customers Customer[]
+
+    @@map("funeral_homes")
+}
+
+model SecurityQuestion {
+    securityQuestionId Int @id
+    question            String
+    admins  Admin[]
+    funeralHomes FuneralHome[]
+
+    @@map("security_questions")
+}

@@ -1,7 +1,7 @@
 {
   "customerId": "d6346982-a147-4336-bca4-895f11965b7a",
-  "responseId": "69d71892-4641-4b1f-8147-b508351852c2",
-  "response": {
+  "lovedOneId": "69d71892-4641-4b1f-8147-b508351852c2",
+  "lovedOne": {
     "bio": {
       "images": null,
       "firstName": "John",

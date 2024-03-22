@@ -1,23 +1,43 @@
-import { drizzle } from 'drizzle-orm/node-postgres';
-import { Client } from 'pg';
-import * as schema from './schema';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// Prisma's types are wrong for the prisma.$on function
+import { Prisma, PrismaClient } from '@prisma/client';
+import { ENV_TYPE } from '../../constants';
 
-const { DATABASE_URL, DB_USER, DB_HOST, DB_NAME, DB_PASSWORD } = process.env;
+const isJest = process.env.JEST_WORKER_ID !== undefined;
+const appEnv = process.env.APP_ENV as ENV_TYPE;
+const info = { emit: 'event', level: 'info' };
+const warn = { emit: 'event', level: 'warn' };
+const error = { emit: 'event', level: 'error' };
 
-export const connection = new Client(
-  DATABASE_URL
-    ? { connectionString: DATABASE_URL }
-    : {
-        user: DB_USER,
-        host: DB_HOST,
-        database: DB_NAME,
-        password: DB_PASSWORD,
-        port: 5432,
-      },
-);
+const logMap = new Map([
+  [ENV_TYPE.LOCAL, [info, warn, error]],
+  [ENV_TYPE.DEV, [info, warn, error]],
+  [ENV_TYPE.TEST, [info, warn, error]],
+  [ENV_TYPE.PROD, [warn, error]],
+]) as unknown as Map<ENV_TYPE, Prisma.LogLevel[]>;
 
-(async () => {
-  await connection.connect();
-})();
+const prisma = new PrismaClient({
+  log: isJest ? [] : logMap.get(appEnv),
+});
 
-export const db = drizzle(connection, { schema });
+// @ts-ignore
+prisma.$on('query', (e: Prisma.QueryEvent) => {
+  console.debug(e);
+});
+
+// @ts-ignore
+prisma.$on('info', (e: Prisma.QueryEvent) => {
+  console.info(e);
+});
+
+// @ts-ignore
+prisma.$on('warn', (e: Prisma.QueryEvent) => {
+  console.warn(e);
+});
+
+// @ts-ignore
+prisma.$on('error', (e: Prisma.QueryEvent) => {
+  console.error(e);
+});
+
+export default prisma;

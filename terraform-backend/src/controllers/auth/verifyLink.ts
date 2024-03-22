@@ -1,15 +1,13 @@
 import { Response } from 'express';
 import { OriterRequest } from '../../types';
 import { STATUS_CODE } from '../../constants';
-import { db } from '../../config/db';
+import db from '../../config/db';
 
-export default async (req: OriterRequest<unknown, { customerId: string, responseId: string }>, res: Response) => {
+export default async (req: OriterRequest<unknown, { customerId: string, lovedOneId: string }>, res: Response) => {
 
-  const existingResponse = await db.query.formResponse.findFirst({
-    where: (formResponse, { eq, and }) => and(eq(formResponse.responseId, req.body.responseId), eq(formResponse.customerId, req.body.customerId))
-  });
+  const lovedOneExists = await db.lovedOne.count({ where: { lovedOneId: req.body.lovedOneId, customerId: req.body.customerId }});
 
-  if(existingResponse) {
+  if(lovedOneExists) {
       res.sendStatus(STATUS_CODE.OKAY);
   } else {
     console.error({
