@@ -2,6 +2,7 @@
 // Prisma's types are wrong for the prisma.$on function
 import { Prisma, PrismaClient } from '@prisma/client';
 import { ENV_TYPE } from '../../constants';
+import logger from '../../utils/logger';
 
 const isJest = process.env.JEST_WORKER_ID !== undefined;
 const appEnv = process.env.APP_ENV as ENV_TYPE;
@@ -21,42 +22,31 @@ const prisma = new PrismaClient({
 });
 
 // @ts-ignore
-prisma.$on('query', (e: Prisma.QueryEvent) => {
-  console.debug({
-    message: 'PRISMA: Query',
-    query: e.query,
-    params: e.params,
-    duration: `${e.duration}ms`,
+prisma.$on('query', (e: { timestamp: Date; message: string; target: string }) => {
+  logger.debug({
+    message: `PRISMA: ${e.message}`,
   });
 });
 
 // @ts-ignore
-prisma.$on('info', (e: Prisma.QueryEvent) => {
-  console.info({
-    message: 'PRISMA: Info',
-    query: e.query,
-    params: e.params,
-    duration: `${e.duration}ms`,
+prisma.$on('info', (e: { timestamp: Date; message: string; target: string }) => {
+  logger.info({
+    message: `PRISMA: ${e.message}`,
   });
 });
 
 // @ts-ignore
-prisma.$on('warn', (e: Prisma.QueryEvent) => {
-  console.warn({
-    message: 'PRISMA: Warning',
-    query: e.query,
-    params: e.params,
-    duration: `${e.duration}ms`,
+prisma.$on('warn', (e: { timestamp: Date; message: string; target: string }) => {
+  logger.warn({
+    message: `PRISMA: ${e.message}`,
   });
 });
 
 // @ts-ignore
-prisma.$on('error', (e: Prisma.QueryEvent) => {
-  console.error({
-    message: 'PRISMA: Error',
-    query: e.query,
-    params: e.params,
-    duration: `${e.duration}ms`,
+prisma.$on('error', (e: { timestamp: Date; message: string; target: string }) => {
+  logger.error({
+    message: `PRISMA: Error`,
+    error: e.message,
   });
 });
 

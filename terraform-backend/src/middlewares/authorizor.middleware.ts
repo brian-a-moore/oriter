@@ -3,13 +3,14 @@ import { verifyToken } from '../utils/jwt';
 import { STATUS_CODE } from '../constants';
 import db from '../config/db';
 import { OriterRequest } from '../types';
+import logger from '../utils/logger';
 
 export default async (req: OriterRequest, res: Response, next: NextFunction) => {
   const authorization = req.headers.authorization;
 
   try {
     if (req.routeId!.includes('-auth')) {
-      console.debug({ routeId: req.routeId, message: 'AUTHORIZATION MIDDLEWARE: Bypassed' });
+      logger.debug({ message: 'AUTHORIZATION MIDDLEWARE: Bypassed', data: { routeId: req.routeId } });
       next();
     } else if (!authorization) {
       throw new Error('AUTHORIZATION MIDDLEWARE: Authorization not provided');
@@ -29,7 +30,10 @@ export default async (req: OriterRequest, res: Response, next: NextFunction) => 
         }
 
         if (!count) {
-          console.debug({ routeId: req.routeId, message: 'AUTHORIZATION MIDDLEWARE: Account found -- Continuing...' });
+          logger.debug({
+            message: 'AUTHORIZATION MIDDLEWARE: Account found -- Continuing...',
+            data: { routeId: req.routeId },
+          });
           next();
         } else {
           throw new Error('AUTHORIZATION MIDDLEWARE: Account not found');
@@ -39,10 +43,10 @@ export default async (req: OriterRequest, res: Response, next: NextFunction) => 
       }
     }
   } catch (e: any | unknown) {
-    console.error({
-      routeId: req.routeId,
+    logger.error({
       message: 'AUTHORIZATION MIDDLEWARE: Authorization failed',
       error: e.message,
+      data: { routeId: req.routeId },
     });
     res.sendStatus(STATUS_CODE.NO_AUTH);
   }

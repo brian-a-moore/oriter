@@ -2,6 +2,7 @@ import { NextFunction, Response } from 'express';
 import { ObjectSchema } from 'joi';
 import { STATUS_CODE } from '../constants';
 import { OriterRequest } from '../types';
+import logger from '../utils/logger';
 
 export default (schema: ObjectSchema) => {
   return async (req: OriterRequest, res: Response, next: NextFunction) => {
@@ -14,17 +15,17 @@ export default (schema: ObjectSchema) => {
       req.query = query;
       req.body = body;
 
-      console.debug({
-        routeId: req.routeId,
+      logger.debug({
         message: 'SCHEMA_VALIDATOR_MIDDLEWARE: Validation passed - Continuing...',
+        data: { routeId: req.routeId },
       });
 
       next();
     } catch (e: any | unknown) {
-      console.error({
-        routeId: req.routeId,
+      logger.error({
         message: 'SCHEMA_VALIDATOR_MIDDLEWARE: Validation failed',
         error: e.message,
+        data: { routeId: req.routeId },
       });
       res.sendStatus(STATUS_CODE.BAD_INPUT);
     }
