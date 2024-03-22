@@ -5,6 +5,7 @@ import routes from './routes';
 import { ENV_TYPE } from './constants';
 import errorHandlingMiddleware from './middlewares/errorHandling.middleware';
 import authorizorMiddleware from './middlewares/authorizor.middleware';
+import routeIdMiddleware from './middlewares/routeId.middleware';
 
 const { APP_ENV } = process.env;
 
@@ -23,6 +24,7 @@ app.use(cors());
 app.use(morgan(morganMapper.get(appEnv) || 'tiny'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(routeIdMiddleware);
 app.use(authorizorMiddleware);
 
 app.use('/', routes);

@@ -20,16 +20,10 @@ export const PHONE_NUMBER = Joi.string()
   .length(10)
   .pattern(/^[0-9]+$/);
 export const RESOURCE_ID = Joi.string().uuid();
-export const STATE = Joi.array()
-  .min(0)
-  .max(10)
-  .unique()
-  .items(
-    Joi.string()
-      .min(2)
-      .max(2)
-      .valid(...states.map((s) => s.code)),
-  );
+export const STATE = Joi.string()
+  .min(2)
+  .max(2)
+  .valid(...states.map((s) => s.code));
 export const STR_SHORT = Joi.string().min(1).max(64);
 export const STR_MED = Joi.string().min(1).max(128);
 export const STR_LONG = Joi.string().min(1).max(256);

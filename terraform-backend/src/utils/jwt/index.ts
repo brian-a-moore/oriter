@@ -4,10 +4,11 @@ const EXP_TIME = '7d';
 const { JWT_SECRET } = process.env;
 
 export interface DecodedData extends JwtPayload {
-  userId: string;
+  id: string;
+  isAdmin: boolean;
 }
 
-export const createToken = (encodedData: { id: string }) => {
+export const createToken = (encodedData: { id: string, isAdmin: boolean }) => {
   try {
     return jwt.sign(encodedData, JWT_SECRET as string, { expiresIn: EXP_TIME });
   } catch (e: any | unknown) {

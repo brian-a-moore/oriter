@@ -6,12 +6,11 @@ import { OriterRequest } from '../types';
 
 export default async (req: OriterRequest, res: Response, next: NextFunction) => {
   const authorization = req.headers.authorization;
-  const routeId = req.method.replace(/\//g, '-') + req.originalUrl.replace(/\//g, '-');
 
-  console.debug('AUTHORIZATION MIDDLEWARE: Route ID', routeId);
+  console.debug('AUTHORIZATION MIDDLEWARE: Route ID', req.routeId);
 
   try {
-    if (routeId.includes('-auth')) {
+    if (req.routeId!.includes('-auth')) {
       console.debug('AUTHORIZATION MIDDLEWARE: Bypassed');
       next();
     } else if (!authorization) {
@@ -25,7 +24,7 @@ export default async (req: OriterRequest, res: Response, next: NextFunction) => 
 
         let records;
 
-        if (req.isAdmin) {
+        if (decodedData.isAdmin) {
           records = await db.query.admin.findMany({ where: (admins, { eq }) => eq(admins.adminId, id) });
         } else {
           records = await db.query.funeralHome.findMany({
@@ -34,14 +33,6 @@ export default async (req: OriterRequest, res: Response, next: NextFunction) => 
         }
 
         if (records.length > 0) {
-          req.id = id;
-
-          if ((req.body as any).isAdmin) {
-            req.isAdmin = true;
-          } else {
-            req.isAdmin = false;
-          }
-
           console.debug('AUTHORIZATION MIDDLEWARE: Account found -- Continuing...');
           next();
         } else {
