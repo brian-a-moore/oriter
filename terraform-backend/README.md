@@ -35,4 +35,5 @@ This is the backend infrastructure and code for Oriter.
 | `db:generate`| Will update the client package | Happens automatically with `db:migrate` |
 | `db:seed` | Will seed the local database | Happens automatically with `db:migrate` |
 | `db:studio` | Opens a local GUI for exploring db ||
+| `db:mock` | Adds some test data to the database ||
 

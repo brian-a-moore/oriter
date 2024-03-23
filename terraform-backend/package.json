@@ -15,7 +15,8 @@
     "db:migrate": "dotenv -e .env.local -- npx prisma migrate dev",
     "db:generate": "dotenv -e .env.local -- npx prisma generate",
     "db:seed": "dotenv -e .env.local -- npx prisma db seed",
-    "db:studio": "dotenv -e .env.local -- npx prisma studio"
+    "db:studio": "dotenv -e .env.local -- npx prisma studio",
+    "db:mock": "dotenv -e .env.local -- ts-node ./mocks/index.ts"
   },
   "prisma": {
     "seed": "ts-node --transpile-only ./src/config/db/seed.ts"
@@ -32,6 +33,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/morgan": "^1.9.9",
     "@types/pg": "^8.11.2",
+    "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
     "aws-sdk": "^2.1565.0",
