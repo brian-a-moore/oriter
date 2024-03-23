@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { OriterRequest } from '../../types';
 import { STATUS_CODE } from '../../constants';
 import db from '../../config/db';
-import { comparePasswords } from '../../utils/bcrypt';
+import { compareStrings } from '../../utils/bcrypt';
 import { createToken } from '../../utils/jwt';
 import logger from '../../utils/logger';
 
@@ -37,7 +37,7 @@ export default async (
     return;
   }
 
-  const isPasswordCorrect = await comparePasswords(req.body.password, user.password);
+  const isPasswordCorrect = await compareStrings(req.body.password, user.password);
 
   if (isPasswordCorrect) {
     const token = createToken({ id: user[req.body.isAdmin ? 'adminId' : 'funeralHomeId'], isAdmin: req.body.isAdmin });

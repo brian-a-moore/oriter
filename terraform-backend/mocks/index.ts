@@ -1,12 +1,13 @@
 import db from '../src/config/db';
 import { v4 as uuid } from 'uuid';
-import { hashPassword } from '../src/utils/bcrypt';
+import { hashString } from '../src/utils/bcrypt';
 
 const main = async () => {
   console.log('Mocking Database...');
   console.log('Creating Admin User...');
 
-  const password = await hashPassword('Password1!');
+  const password = await hashString('Password1!');
+  const securityAnswer = await hashString('Smith');
 
   await db.admin.create({
     data: {
@@ -16,7 +17,7 @@ const main = async () => {
       email: 'first@last.com',
       password,
       securityQuestionId: 1,
-      securityAnswer: 'Smith',
+      securityAnswer,
     },
   });
 

@@ -11,13 +11,12 @@ export const login = OBJECT({
 });
 
 export const updatePassword = OBJECT({
-  params: OBJECT({
-    funeralHomeId: RESOURCE_ID.required(),
-  }),
+  params: EMPTY_OBJECT,
   body: OBJECT({
-    questionId: Joi.number().min(1).max(99).required(),
+    email: EMAIL.required(),
     answer: STR_LONG.required(),
     password: STR_LONG.required(),
+    isAdmin: Joi.boolean().required(),
   }),
 });
 
