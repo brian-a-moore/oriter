@@ -6,7 +6,6 @@ export const create = OBJECT({
     firstName: STR_MED.required(),
     lastName: STR_MED.required(),
     email: EMAIL.required(),
-    password: STR_LONG.required(),
   }),
 });
 

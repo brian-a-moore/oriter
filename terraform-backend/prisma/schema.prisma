@@ -15,7 +15,7 @@ model Admin {
   password           String
   securityQuestion   SecurityQuestion? @relation(fields: [securityQuestionId], references: [securityQuestionId])
   securityQuestionId Int?
-  securityAnswer     String
+  securityAnswer     String?
   createdAt          DateTime          @default(now())
   updatedAt          DateTime          @updatedAt
 
@@ -62,9 +62,9 @@ model FuneralHome {
   zipCode            String
   email              String           @unique
   password           String
-  securityQuestion   SecurityQuestion @relation(fields: [securityQuestionId], references: [securityQuestionId])
-  securityQuestionId Int
-  securityAnswer     String
+  securityQuestion   SecurityQuestion? @relation(fields: [securityQuestionId], references: [securityQuestionId])
+  securityQuestionId Int?
+  securityAnswer     String?
   phoneNumber        String           @unique
   funeralHomeName    String
   firstName          String
