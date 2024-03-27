@@ -1,7 +1,27 @@
 import { Response, Request } from 'express';
+import db from '../../../config/db';
 import { STATUS_CODE } from '../../../constants';
 
-export default async (req: Request, res: Response) => {
-  console.log('req', { params: req.params, body: req.body });
-  res.sendStatus(STATUS_CODE.NOT_IMPLEMENTED);
+export default async (_: Request, res: Response) => {
+  try {
+    const users = await db.funeralHome.findMany({
+      select: {
+        funeralHomeId: true,
+        funeralHomeName: true,
+        city: true,
+        state: true,
+        zipCode: true,
+        firstName: true,
+        lastName: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    res.status(STATUS_CODE.OKAY).json({ users });
+  } catch (e: any | unknown) {
+    res.sendStatus(STATUS_CODE.SERVER_ERROR);
+
+    return;
+  }
 };

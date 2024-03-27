@@ -9,6 +9,13 @@ export enum ENV_TYPE {
 
 export const EXP_TIME = '30d';
 
+/**
+ * Password Regex
+ * This regex will match a password string that contains between 8 and 24 characters, at least one uppercase letter, at least one of the approved symbols, and only alphanumeric characters, uppercase letters, and the approved symbols.
+ * Approved symbols: (!, @, #, $, %, ^, &, *)
+ */
+export const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*[!@#$%^&*()])(?=.{8,24}$)[a-zA-Z0-9!@#$%^&*()]*$/;
+
 export enum RESPONSE_TYPE {
   ERROR = 'error',
   INFO = 'info',

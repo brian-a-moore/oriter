@@ -6,6 +6,7 @@ export default async (_: Request, res: Response) => {
   try {
     const users = await db.admin.findMany({
       select: {
+        adminId: true,
         firstName: true,
         lastName: true,
         email: true,
