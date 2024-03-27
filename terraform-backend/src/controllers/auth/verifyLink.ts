@@ -17,6 +17,7 @@ export default async (req: OriterRequest<unknown, { customerId: string; lovedOne
       error: 'Not a valid link',
       data: { routeId: req.routeId },
     });
-    res.sendStatus(STATUS_CODE.BAD_INPUT);
+
+    res.sendStatus(STATUS_CODE.NOT_FOUND);
   }
 };

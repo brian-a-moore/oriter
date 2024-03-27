@@ -19,6 +19,11 @@ export default async (req: OriterRequest, res: Response, next: NextFunction) => 
       if (type === 'Bearer') {
         const decodedData = verifyToken(data);
 
+        logger.debug({
+          message: 'AUTHORIZATION MIDDLEWARE: Token verified',
+          data: { routeId: req.routeId, decodedData },
+        });
+
         const id = decodedData.id;
 
         let count;
@@ -29,11 +34,12 @@ export default async (req: OriterRequest, res: Response, next: NextFunction) => 
           count = await db.funeralHome.count({ where: { funeralHomeId: id } });
         }
 
-        if (!count) {
+        if (count) {
           logger.debug({
             message: 'AUTHORIZATION MIDDLEWARE: Account found -- Continuing...',
             data: { routeId: req.routeId },
           });
+          req.user = decodedData;
           next();
         } else {
           throw new Error('AUTHORIZATION MIDDLEWARE: Account not found');

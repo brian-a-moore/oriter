@@ -4,6 +4,8 @@ import { OriterRequest } from '../../../types';
 import { STATUS_CODE } from '../../../constants';
 import { hashString } from '../../../utils/bcrypt';
 import db from '../../../config/db';
+import logger from '../../../utils/logger';
+import pw from '../../../utils/password';
 
 export default async (
   req: OriterRequest<
@@ -17,17 +19,34 @@ export default async (
   res: Response,
 ) => {
   const adminId = await uuid();
-  const password = await hashString('Password1!');
+  const rawPassword = pw();
+  const password = await hashString(rawPassword);
 
-  const user = await db.admin.create({
-    data: {
-      ...req.body,
-      adminId,
-      password,
-    },
-  });
+  try {
+    await db.admin.create({
+      data: {
+        ...req.body,
+        adminId,
+        password,
+      },
+    });
+  } catch (e: any | unknown) {
+    logger.error({
+      message: 'Unable to create new admin user',
+      error: e.message,
+      data: { routeId: req.routeId },
+    });
 
-  console.log(user);
+    if (e.code === 'P2002') {
+      res.status(STATUS_CODE.BAD_INPUT).json({ message: 'Admin user with this email already exists' });
 
-  res.sendStatus(STATUS_CODE.OKAY);
+      return;
+    }
+
+    res.sendStatus(STATUS_CODE.SERVER_ERROR);
+
+    return;
+  }
+
+  res.status(STATUS_CODE.OKAY).json({ tempPassword: rawPassword });
 };

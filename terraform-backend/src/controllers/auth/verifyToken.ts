@@ -21,6 +21,6 @@ export default async (req: OriterRequest<unknown, { token: string }>, res: Respo
       data: { routeId: req.routeId },
     });
 
-    res.sendStatus(STATUS_CODE.BAD_INPUT);
+    res.sendStatus(STATUS_CODE.NO_AUTH);
   }
 };

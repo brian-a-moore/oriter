@@ -5,6 +5,7 @@ import db from '../../config/db';
 import { compareStrings } from '../../utils/bcrypt';
 import { createToken } from '../../utils/jwt';
 import logger from '../../utils/logger';
+import { Admin, FuneralHome } from '@prisma/client';
 
 export default async (
   req: OriterRequest<
@@ -17,35 +18,80 @@ export default async (
   >,
   res: Response,
 ) => {
-  let user: any;
+  let user: Partial<Admin | FuneralHome>;
 
-  if (req.body.isAdmin) {
-    user = await db.admin.findUnique({
-      select: { adminId: true, password: true },
-      where: { email: req.body.email },
+  try {
+    if (req.body.isAdmin) {
+      user = await db.admin.findUniqueOrThrow({
+        select: { adminId: true, password: true },
+        where: { email: req.body.email },
+      });
+    } else {
+      user = await db.funeralHome.findUniqueOrThrow({
+        select: { funeralHomeId: true, password: true },
+        where: { email: req.body.email },
+      });
+    }
+  } catch (e: any | unknown) {
+    logger.error({
+      message: 'Unable query admin or funeral home user',
+      error: e.message,
+      data: { routeId: req.routeId },
     });
-  } else {
-    user = await db.funeralHome.findUnique({
-      select: { funeralHomeId: true, password: true },
-      where: { email: req.body.email },
-    });
-  }
 
-  if (!user) {
-    logger.info({ message: 'User not found', data: { routeId: req.routeId } });
-    res.sendStatus(STATUS_CODE.NOT_FOUND);
+    if (e.code === 'P2025') {
+      res.sendStatus(STATUS_CODE.NOT_FOUND);
+
+      return;
+    }
+
+    res.sendStatus(STATUS_CODE.SERVER_ERROR);
+
     return;
   }
 
-  const isPasswordCorrect = await compareStrings(req.body.password, user.password);
+  let isPasswordCorrect: boolean;
+  let token: string;
+
+  try {
+    isPasswordCorrect = await compareStrings(req.body.password, user.password!);
+  } catch (e: any | unknown) {
+    logger.error({
+      message: 'Unable to compare password',
+      error: e.message,
+      data: { routeId: req.routeId },
+    });
+
+    res.sendStatus(STATUS_CODE.SERVER_ERROR);
+
+    return;
+  }
 
   if (isPasswordCorrect) {
-    const token = createToken({ id: user[req.body.isAdmin ? 'adminId' : 'funeralHomeId'], isAdmin: req.body.isAdmin });
+    try {
+      const id = (user as Admin).adminId || (user as FuneralHome).funeralHomeId;
+      token = createToken({
+        id,
+        isAdmin: req.body.isAdmin,
+      });
 
-    res.status(STATUS_CODE.OKAY).json({ token });
-    return;
+      res.status(STATUS_CODE.OKAY).json({ token, user: { id, isAdmin: req.body.isAdmin } });
+
+      return;
+    } catch (e: any | unknown) {
+      logger.error({
+        message: 'Unable to create token',
+        error: e.message,
+        data: { routeId: req.routeId },
+      });
+
+      res.sendStatus(STATUS_CODE.SERVER_ERROR);
+
+      return;
+    }
   }
 
   logger.info({ message: 'Password incorrect', data: { routeId: req.routeId } });
-  res.sendStatus(STATUS_CODE.BAD_INPUT);
+
+  res.status(STATUS_CODE.BAD_INPUT).json({ message: 'Password incorrect' });
 };
