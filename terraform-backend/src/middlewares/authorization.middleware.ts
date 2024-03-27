@@ -8,7 +8,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
   const authorization = req.headers.authorization;
 
   try {
-    if (req.routeId?.includes('-auth')) {
+    if (req.routeId?.includes('-auth') || req.routeId?.includes('patch-loved-one')) {
       logger.debug({ message: 'AUTHORIZATION MIDDLEWARE: Bypassed', data: { routeId: req.routeId } });
       next();
     } else if (!authorization) {

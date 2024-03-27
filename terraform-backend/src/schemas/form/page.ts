@@ -9,7 +9,6 @@ import {
   STATE,
   STR_SHORT,
   TIME,
-  YEAR,
 } from '../../constants/schemas';
 import { IncidentLocation, MilitaryBranch } from '../../types/enums';
 import { institutionItem, organizationItem, employerItem, childItem, siblingItem, friendItem } from './item';
@@ -22,34 +21,34 @@ export const bioPage = OBJECT({
     .max(12)
     .required(),
   firstName: STR_SHORT.required(),
-  middleName: STR_SHORT,
+  middleName: STR_SHORT.allow(''),
   lastName: STR_SHORT.required(),
-  nickname: STR_SHORT,
+  nickname: STR_SHORT.allow(''),
   placeOfIncident: INCIDENT_LOCATION,
   other: Joi.when('placeOfIncident', {
     is: Joi.string().valid(IncidentLocation.OTHER),
     then: STR_SHORT.required(),
-    otherwise: STR_SHORT,
+    otherwise: Joi.string().valid(''),
   }),
   birth: OBJECT({
     date: Joi.string(),
-    city: STR_SHORT,
-    state: STATE,
+    city: STR_SHORT.allow(''),
+    state: STATE.allow('NONE'),
   }),
   death: OBJECT({
     date: Joi.string().required(),
-    city: STR_SHORT,
-    state: STATE,
+    city: STR_SHORT.allow(''),
+    state: STATE.allow('NONE'),
   }),
   parents: OBJECT({
     father: OBJECT({
-      firstName: STR_SHORT,
-      lastName: STR_SHORT,
+      firstName: STR_SHORT.allow(''),
+      lastName: STR_SHORT.allow(''),
       isDeceased: Joi.boolean(),
     }),
     mother: OBJECT({
-      firstName: STR_SHORT,
-      lastName: STR_SHORT,
+      firstName: STR_SHORT.allow(''),
+      lastName: STR_SHORT.allow(''),
       isDeceased: Joi.boolean(),
     }),
   }),
@@ -64,22 +63,22 @@ export const educationPage = OBJECT({
       then: MILITARY_BRANCH,
       otherwise: Joi.string().valid(MilitaryBranch.NONE).required(),
     }),
-    position: STR_SHORT,
+    position: STR_SHORT.allow(''),
     numOfYears: NUM_OF_YRS.required(),
   }).required(),
 });
 
 export const employmentPage = OBJECT({
   employers: Joi.array().items(employerItem).min(0).max(10).required(),
-  hobbies: PARAGRAPH,
-  additionalInfo: PARAGRAPH,
+  hobbies: PARAGRAPH.allow(''),
+  additionalInfo: PARAGRAPH.allow(''),
 });
 
 export const familyPage = OBJECT({
   spouse: OBJECT({
-    firstName: STR_SHORT,
-    lastName: STR_SHORT,
-    numOfYears: YEAR.required(),
+    firstName: STR_SHORT.allow(''),
+    lastName: STR_SHORT.allow(''),
+    numOfYears: NUM_OF_YRS.required(),
   }).required(),
   children: Joi.array().items(childItem).min(0).max(10).required(),
   siblings: Joi.array().items(siblingItem).min(0).max(10).required(),

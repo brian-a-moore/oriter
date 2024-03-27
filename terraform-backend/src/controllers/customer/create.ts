@@ -12,7 +12,7 @@ export default async (
   const customerId = await uuid();
 
   try {
-    await db.funeralHome.create({
+    await db.customer.create({
       data: {
         ...req.body,
         customerId,

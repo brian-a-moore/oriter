@@ -3,9 +3,12 @@ import db from '../../config/db';
 import { STATUS_CODE } from '../../constants';
 import logger from '../../utils/logger';
 
-export default async (req: Request<unknown, { customerId: string; lovedOneId: string }>, res: Response) => {
+export default async (
+  req: Request<unknown, { customerId: string; lovedOneId: string; funeralHomeId: string }>,
+  res: Response,
+) => {
   const lovedOneExists = await db.lovedOne.count({
-    where: { lovedOneId: req.body.lovedOneId, customerId: req.body.customerId },
+    where: { lovedOneId: req.body.lovedOneId, customerId: req.body.customerId, funeralHomeId: req.body.funeralHomeId },
   });
 
   if (lovedOneExists) {

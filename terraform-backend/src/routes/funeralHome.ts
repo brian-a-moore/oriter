@@ -3,7 +3,7 @@ import schemaValidator from '../middlewares/schemaValidator.middleware';
 import * as schemas from '../schemas/funeralHome';
 import * as controllers from '../controllers/funeralHome';
 import checkPermission from '../middlewares/checkPermission.middleware';
-import canAccessFuneralHome from '../permissions/canAccessFuneralHome';
+import { canAccessFuneralHome } from '../permissions';
 
 const router = Router();
 

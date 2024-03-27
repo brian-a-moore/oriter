@@ -23,6 +23,7 @@ export const updatePassword = OBJECT({
 export const verifyLink = OBJECT({
   params: EMPTY_OBJECT,
   body: OBJECT({
+    funeralHomeId: RESOURCE_ID.required(),
     customerId: RESOURCE_ID.required(),
     lovedOneId: RESOURCE_ID.required(),
   }),
