@@ -2,7 +2,6 @@ import { Prisma } from '@prisma/client';
 import { Response, Request } from 'express';
 import db from '../../../config/db';
 import { STATUS_CODE } from '../../../constants';
-import { hashString } from '../../../utils/bcrypt';
 import logger from '../../../utils/logger';
 
 export default async (
@@ -12,21 +11,11 @@ export default async (
   >,
   res: Response,
 ) => {
-  const { password, securityQuestionId, securityAnswer, ...rest } = req.body;
-  const insert: Prisma.FuneralHomeUncheckedUpdateInput = { ...rest };
-
-  if (securityQuestionId && securityAnswer) {
-    insert.securityQuestionId = securityQuestionId;
-    insert.securityAnswer = await hashString(securityAnswer);
-  }
-
-  if (password) {
-    insert.password = await hashString(password);
-  }
+  const update: Prisma.FuneralHomeUncheckedUpdateInput = req.body;
 
   try {
     await db.funeralHome.update({
-      data: insert,
+      data: update,
       where: { funeralHomeId: req.params.funeralHomeId },
     });
 
@@ -35,7 +24,7 @@ export default async (
     logger.error({
       message: 'Failed to update funeral home',
       error: e.message,
-      data: { funeralHomeId: req.params.funeralHomeId, insert },
+      data: { funeralHomeId: req.params.funeralHomeId, update },
     });
 
     if (e.code === 'P2002') {

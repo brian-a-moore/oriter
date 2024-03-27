@@ -11,20 +11,20 @@ export default async (
 ) => {
   const { password, securityQuestionId, securityAnswer, ...rest } = req.body;
 
-  const insert: Prisma.AdminUncheckedUpdateInput = { ...rest };
+  const update: Prisma.AdminUncheckedUpdateInput = { ...rest };
 
   if (securityQuestionId && securityAnswer) {
-    insert.securityQuestionId = securityQuestionId;
-    insert.securityAnswer = await hashString(securityAnswer);
+    update.securityQuestionId = securityQuestionId;
+    update.securityAnswer = await hashString(securityAnswer);
   }
 
   if (password) {
-    insert.password = await hashString(password);
+    update.password = await hashString(password);
   }
 
   try {
     await db.admin.update({
-      data: insert,
+      data: update,
       where: { adminId: req.params.adminId },
     });
 
@@ -33,7 +33,7 @@ export default async (
     logger.error({
       message: 'Failed to update admin',
       error: e.message,
-      data: { adminId: req.params.adminId, insert },
+      data: { adminId: req.params.adminId, update },
     });
 
     if (e.code === 'P2002') {
