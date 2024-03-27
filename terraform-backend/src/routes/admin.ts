@@ -4,7 +4,7 @@ import * as adminUserSchemas from '../schemas/admin/user';
 import * as funeralHomeSchemas from '../schemas/admin/funeralHome';
 import * as userControllers from '../controllers/admin/user';
 import * as funeral_homeControllers from '../controllers/admin/funeralHome';
-import permissionMiddleware from '../middlewares/permission.middleware';
+import checkPermission from '../middlewares/checkPermission.middleware';
 import { canDeleteAdmin, canUpdateAdmin, canUseAdminRoutes } from '../permissions';
 
 const router = Router();
@@ -13,31 +13,26 @@ const router = Router();
 router.post(
   '/',
   schemaValidator(adminUserSchemas.create),
-  permissionMiddleware([canUseAdminRoutes]),
+  checkPermission([canUseAdminRoutes]),
   userControllers.create,
 );
-router.get(
-  '/list',
-  schemaValidator(adminUserSchemas.list),
-  permissionMiddleware([canUseAdminRoutes]),
-  userControllers.list,
-);
+router.get('/list', schemaValidator(adminUserSchemas.list), checkPermission([canUseAdminRoutes]), userControllers.list);
 router.get(
   '/:adminId',
   schemaValidator(adminUserSchemas.get),
-  permissionMiddleware([canUseAdminRoutes]),
+  checkPermission([canUseAdminRoutes]),
   userControllers.get,
 );
 router.delete(
   '/:adminId',
   schemaValidator(adminUserSchemas.remove),
-  permissionMiddleware([canUseAdminRoutes, canDeleteAdmin]),
+  checkPermission([canUseAdminRoutes, canDeleteAdmin]),
   userControllers.remove,
 );
 router.patch(
   '/:adminId',
   schemaValidator(adminUserSchemas.update),
-  permissionMiddleware([canUseAdminRoutes, canUpdateAdmin]),
+  checkPermission([canUseAdminRoutes, canUpdateAdmin]),
   userControllers.update,
 );
 
@@ -45,31 +40,31 @@ router.patch(
 router.post(
   '/funeral_home',
   schemaValidator(funeralHomeSchemas.create),
-  permissionMiddleware([canUseAdminRoutes]),
+  checkPermission([canUseAdminRoutes]),
   funeral_homeControllers.create,
 );
 router.get(
   '/funeral_home/list',
   schemaValidator(funeralHomeSchemas.list),
-  permissionMiddleware([canUseAdminRoutes]),
+  checkPermission([canUseAdminRoutes]),
   funeral_homeControllers.list,
 );
 router.get(
   '/funeral_home/:funeralHomeId',
   schemaValidator(funeralHomeSchemas.list),
-  permissionMiddleware([canUseAdminRoutes]),
+  checkPermission([canUseAdminRoutes]),
   funeral_homeControllers.list,
 );
 router.delete(
   '/funeral_home/:funeralHomeId',
   schemaValidator(funeralHomeSchemas.remove),
-  permissionMiddleware([canUseAdminRoutes]),
+  checkPermission([canUseAdminRoutes]),
   funeral_homeControllers.remove,
 );
 router.put(
   '/funeral_home/:funeralHomeId',
   schemaValidator(funeralHomeSchemas.update),
-  permissionMiddleware([canUseAdminRoutes]),
+  checkPermission([canUseAdminRoutes]),
   funeral_homeControllers.update,
 );
 
