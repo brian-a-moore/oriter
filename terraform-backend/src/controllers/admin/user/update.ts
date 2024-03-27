@@ -5,7 +5,10 @@ import { STATUS_CODE } from '../../../constants';
 import { hashString } from '../../../utils/bcrypt';
 import logger from '../../../utils/logger';
 
-export default async (req: Request<{ adminId: string }, Prisma.AdminUncheckedUpdateInput>, res: Response) => {
+export default async (
+  req: Request<{ adminId: string }, Omit<Prisma.AdminUncheckedUpdateInput, 'adminId'>>,
+  res: Response,
+) => {
   const { password, securityQuestionId, securityAnswer, ...rest } = req.body;
 
   const insert: Prisma.AdminUncheckedUpdateInput = { ...rest };

@@ -5,15 +5,12 @@ import { STATUS_CODE } from '../../../constants';
 import { hashString } from '../../../utils/bcrypt';
 import logger from '../../../utils/logger';
 import pw from '../../../utils/password';
+import { Prisma } from '@prisma/client';
 
 export default async (
   req: Request<
     unknown,
-    {
-      firstName: string;
-      lastName: string;
-      email: string;
-    }
+    Omit<Prisma.AdminUncheckedCreateInput, 'adminId' | 'password' | 'securityQuestionId' | 'securityAnswer'>
   >,
   res: Response,
 ) => {

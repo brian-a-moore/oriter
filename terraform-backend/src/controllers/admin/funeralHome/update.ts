@@ -6,7 +6,10 @@ import { hashString } from '../../../utils/bcrypt';
 import logger from '../../../utils/logger';
 
 export default async (
-  req: Request<{ funeralHomeId: string }, Prisma.FuneralHomeUncheckedUpdateInput>,
+  req: Request<
+    { funeralHomeId: string },
+    Omit<Prisma.FuneralHomeUncheckedUpdateInput, 'funeralHomeId' | 'password' | 'securityQuestionId' | 'securityAnswer'>
+  >,
   res: Response,
 ) => {
   const { password, securityQuestionId, securityAnswer, ...rest } = req.body;
