@@ -9,20 +9,18 @@ export default async (req: Request<{ adminId: string }>, res: Response) => {
 
     res.sendStatus(STATUS_CODE.OKAY);
   } catch (e: any | unknown) {
-    if (e.code === 'P2025') {
-      logger.error({
-        message: 'Failed to delete admin user',
-        error: 'User does not exist',
-        data: { adminId: req.params.adminId },
-      });
+    logger.error({
+      message: 'Unable to delete admin user',
+      error: e.message,
+      data: { adminId: req.params.adminId },
+    });
 
+    if (e.code === 'P2025') {
       res.sendStatus(STATUS_CODE.NOT_FOUND);
 
       return;
     }
 
     res.sendStatus(STATUS_CODE.SERVER_ERROR);
-
-    return;
   }
 };

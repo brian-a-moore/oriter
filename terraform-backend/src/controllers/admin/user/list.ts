@@ -1,8 +1,9 @@
 import { Response, Request } from 'express';
 import db from '../../../config/db';
 import { STATUS_CODE } from '../../../constants';
+import logger from '../../../utils/logger';
 
-export default async (_: Request, res: Response) => {
+export default async (req: Request, res: Response) => {
   try {
     const users = await db.admin.findMany({
       select: {
@@ -17,6 +18,12 @@ export default async (_: Request, res: Response) => {
 
     res.status(STATUS_CODE.OKAY).json({ users });
   } catch (e: any | unknown) {
+    logger.error({
+      message: 'Unable to get admin users',
+      error: e.message,
+      data: { routeId: req.routeId },
+    });
+
     res.sendStatus(STATUS_CODE.SERVER_ERROR);
 
     return;

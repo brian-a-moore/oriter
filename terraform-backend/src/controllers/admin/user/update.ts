@@ -6,20 +6,16 @@ import { hashString } from '../../../utils/bcrypt';
 import logger from '../../../utils/logger';
 
 export default async (
-  req: Request<{ adminId: string }, Omit<Prisma.AdminUncheckedUpdateInput, 'adminId'>>,
+  req: Request<{ adminId: string }, Omit<Prisma.AdminUncheckedUpdateInput, 'adminId' | 'password'>>,
   res: Response,
 ) => {
-  const { password, securityQuestionId, securityAnswer, ...rest } = req.body;
+  const { securityQuestionId, securityAnswer, ...rest } = req.body;
 
   const update: Prisma.AdminUncheckedUpdateInput = { ...rest };
 
   if (securityQuestionId && securityAnswer) {
     update.securityQuestionId = securityQuestionId;
     update.securityAnswer = await hashString(securityAnswer);
-  }
-
-  if (password) {
-    update.password = await hashString(password);
   }
 
   try {
@@ -31,7 +27,7 @@ export default async (
     res.sendStatus(STATUS_CODE.OKAY);
   } catch (e: any | unknown) {
     logger.error({
-      message: 'Failed to update admin',
+      message: 'Unable to update admin',
       error: e.message,
       data: { adminId: req.params.adminId, update },
     });

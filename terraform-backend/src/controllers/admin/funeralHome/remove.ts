@@ -9,20 +9,18 @@ export default async (req: Request<{ funeralHomeId: string }>, res: Response) =>
 
     res.sendStatus(STATUS_CODE.OKAY);
   } catch (e: any | unknown) {
-    if (e.code === 'P2025') {
-      logger.error({
-        message: 'Failed to delete funeral home',
-        error: 'Funeral home does not exist',
-        data: { funeralHomeId: req.params.funeralHomeId },
-      });
+    logger.error({
+      message: 'Unable to delete funeral home',
+      error: e.message,
+      data: { funeralHomeId: req.params.funeralHomeId, routeId: req.routeId },
+    });
 
+    if (e.code === 'P2025') {
       res.sendStatus(STATUS_CODE.NOT_FOUND);
 
       return;
     }
 
     res.sendStatus(STATUS_CODE.SERVER_ERROR);
-
-    return;
   }
 };

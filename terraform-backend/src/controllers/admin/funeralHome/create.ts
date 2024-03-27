@@ -10,7 +10,7 @@ import { Prisma } from '@prisma/client';
 export default async (
   req: Request<
     unknown,
-    Omit<Prisma.FuneralHomeUncheckedCreateInput, 'password' | 'securityQuestionId' | 'securityAnswer'>
+    Omit<Prisma.FuneralHomeUncheckedCreateInput, 'funeralHomeId' | 'password' | 'securityQuestionId' | 'securityAnswer'>
   >,
   res: Response,
 ) => {
@@ -26,6 +26,12 @@ export default async (
         password,
       },
     });
+
+    res.status(STATUS_CODE.OKAY).json({
+      message: `Please let ${req.body.firstName} ${req.body.lastName} know to update the password and security question for their funeral home after their first login.`,
+      funeralHomeId,
+      tempPassword: rawPassword,
+    });
   } catch (e: any | unknown) {
     logger.error({
       message: 'Unable to create new funeral home',
@@ -40,13 +46,5 @@ export default async (
     }
 
     res.sendStatus(STATUS_CODE.SERVER_ERROR);
-
-    return;
   }
-
-  res.status(STATUS_CODE.OKAY).json({
-    message: `Please let ${req.body.firstName} ${req.body.lastName} know to update the password and security question for their funeral home after their first login.`,
-    funeralHomeId,
-    tempPassword: rawPassword,
-  });
 };

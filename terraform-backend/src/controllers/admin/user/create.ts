@@ -26,6 +26,8 @@ export default async (
         password,
       },
     });
+
+    res.status(STATUS_CODE.OKAY).json({ tempPassword: rawPassword });
   } catch (e: any | unknown) {
     logger.error({
       message: 'Unable to create new admin user',
@@ -40,9 +42,5 @@ export default async (
     }
 
     res.sendStatus(STATUS_CODE.SERVER_ERROR);
-
-    return;
   }
-
-  res.status(STATUS_CODE.OKAY).json({ tempPassword: rawPassword });
 };

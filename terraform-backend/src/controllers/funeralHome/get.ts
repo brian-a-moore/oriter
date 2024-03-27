@@ -1,6 +1,7 @@
 import { Response, Request } from 'express';
 import { STATUS_CODE } from '../../constants';
 import db from '../../config/db';
+import logger from '../../utils/logger';
 
 export default async (req: Request<{ funeralHomeId: string }>, res: Response) => {
   try {
@@ -24,6 +25,12 @@ export default async (req: Request<{ funeralHomeId: string }>, res: Response) =>
 
     res.status(STATUS_CODE.OKAY).json({ funeralHome });
   } catch (e: any | unknown) {
+    logger.error({
+      message: 'Unable to get funeral home',
+      error: e.message,
+      data: { routeId: req.routeId },
+    });
+
     if (e.code === 'P2025') {
       res.sendStatus(STATUS_CODE.NOT_FOUND);
 
@@ -31,7 +38,5 @@ export default async (req: Request<{ funeralHomeId: string }>, res: Response) =>
     }
 
     res.sendStatus(STATUS_CODE.SERVER_ERROR);
-
-    return;
   }
 };

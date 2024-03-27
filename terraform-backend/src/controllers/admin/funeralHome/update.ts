@@ -22,7 +22,7 @@ export default async (
     res.sendStatus(STATUS_CODE.OKAY);
   } catch (e: any | unknown) {
     logger.error({
-      message: 'Failed to update funeral home',
+      message: 'Unable to update funeral home',
       error: e.message,
       data: { funeralHomeId: req.params.funeralHomeId, update },
     });

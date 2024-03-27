@@ -1,8 +1,9 @@
 import { Response, Request } from 'express';
 import db from '../../../config/db';
 import { STATUS_CODE } from '../../../constants';
+import logger from '../../../utils/logger';
 
-export default async (_: Request, res: Response) => {
+export default async (req: Request, res: Response) => {
   try {
     const funeralHomes = await db.funeralHome.findMany({
       select: {
@@ -20,8 +21,12 @@ export default async (_: Request, res: Response) => {
 
     res.status(STATUS_CODE.OKAY).json({ funeralHomes });
   } catch (e: any | unknown) {
-    res.sendStatus(STATUS_CODE.SERVER_ERROR);
+    logger.error({
+      message: 'Unable to get funeral homes',
+      error: e.message,
+      data: { routeId: req.routeId },
+    });
 
-    return;
+    res.sendStatus(STATUS_CODE.SERVER_ERROR);
   }
 };

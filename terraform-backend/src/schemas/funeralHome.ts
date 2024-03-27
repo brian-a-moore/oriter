@@ -35,6 +35,5 @@ export const update = OBJECT({
       then: Joi.required(),
       otherwise: Joi.forbidden(),
     }),
-    password: STR_LONG,
   }),
 });

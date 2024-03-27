@@ -6,19 +6,15 @@ import { hashString } from '../../utils/bcrypt';
 import logger from '../../utils/logger';
 
 export default async (
-  req: Request<{ funeralHomeId: string }, Omit<Prisma.FuneralHomeUncheckedUpdateInput, 'funeralHomeId'>>,
+  req: Request<{ funeralHomeId: string }, Omit<Prisma.FuneralHomeUncheckedUpdateInput, 'funeralHomeId' | 'password'>>,
   res: Response,
 ) => {
-  const { password, securityQuestionId, securityAnswer, ...rest } = req.body;
+  const { securityQuestionId, securityAnswer, ...rest } = req.body;
   const insert: Prisma.FuneralHomeUncheckedUpdateInput = { ...rest };
 
   if (securityQuestionId && securityAnswer) {
     insert.securityQuestionId = securityQuestionId;
     insert.securityAnswer = await hashString(securityAnswer);
-  }
-
-  if (password) {
-    insert.password = await hashString(password);
   }
 
   try {
@@ -30,7 +26,7 @@ export default async (
     res.sendStatus(STATUS_CODE.OKAY);
   } catch (e: any | unknown) {
     logger.error({
-      message: 'Failed to update funeral home',
+      message: 'Unable to update funeral home',
       error: e.message,
       data: { funeralHomeId: req.params.funeralHomeId, insert },
     });
