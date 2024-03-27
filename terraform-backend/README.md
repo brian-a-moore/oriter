@@ -27,13 +27,12 @@ This is the backend infrastructure and code for Oriter.
 
 ## Prisma
 
-| Command | Description | Notes |
-|---|---|---|
-| `db:format` | Formats the prisma.schema file | |
-| `db:reset` | Resets the database | Will delete all existing data and re-seed |
-| `db:migrate` | Will create new migrations based on recent changes | |
-| `db:generate`| Will update the client package | Happens automatically with `db:migrate` |
-| `db:seed` | Will seed the local database | Happens automatically with `db:migrate` |
-| `db:studio` | Opens a local GUI for exploring db ||
-| `db:mock` | Adds some test data to the database ||
-
+| Command       | Description                                        | Notes                                     |
+| ------------- | -------------------------------------------------- | ----------------------------------------- |
+| `db:format`   | Formats the prisma.schema file                     |                                           |
+| `db:reset`    | Resets the database                                | Will delete all existing data and re-seed |
+| `db:migrate`  | Will create new migrations based on recent changes |                                           |
+| `db:generate` | Will update the client package                     | Happens automatically with `db:migrate`   |
+| `db:seed`     | Will seed the local database                       | Happens automatically with `db:migrate`   |
+| `db:studio`   | Opens a local GUI for exploring db                 |                                           |
+| `db:mock`     | Adds some test data to the database                |                                           |

@@ -8,7 +8,7 @@ export interface DecodedData extends JwtPayload {
   isAdmin: boolean;
 }
 
-export const createToken = (encodedData: { id: string, isAdmin: boolean }) => {
+export const createToken = (encodedData: { id: string; isAdmin: boolean }) => {
   try {
     return jwt.sign(encodedData, JWT_SECRET as string, { expiresIn: EXP_TIME });
   } catch (e: any | unknown) {
