@@ -56,6 +56,12 @@ export default async (
       data: { adminId: req.params.adminId, insert },
     });
 
+    if (e.code === 'P2002') {
+      res.status(STATUS_CODE.BAD_INPUT).json({ message: 'Admin user with this email already exists' });
+
+      return;
+    }
+
     res.sendStatus(STATUS_CODE.SERVER_ERROR);
   }
 };
