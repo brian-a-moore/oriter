@@ -4,7 +4,7 @@ import { STATUS_CODE } from '../../../constants';
 
 export default async (_: Request, res: Response) => {
   try {
-    const users = await db.funeralHome.findMany({
+    const funeralHomes = await db.funeralHome.findMany({
       select: {
         funeralHomeId: true,
         funeralHomeName: true,
@@ -18,7 +18,7 @@ export default async (_: Request, res: Response) => {
       },
     });
 
-    res.status(STATUS_CODE.OKAY).json({ users });
+    res.status(STATUS_CODE.OKAY).json({ funeralHomes });
   } catch (e: any | unknown) {
     res.sendStatus(STATUS_CODE.SERVER_ERROR);
 

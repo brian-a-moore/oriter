@@ -4,7 +4,7 @@ import db from '../../../config/db';
 
 export default async (req: Request<{ funeralHomeId: string }>, res: Response) => {
   try {
-    const user = await db.funeralHome.findUniqueOrThrow({
+    const funeralHome = await db.funeralHome.findUniqueOrThrow({
       select: {
         addressLine1: true,
         addressLine2: true,
@@ -22,7 +22,7 @@ export default async (req: Request<{ funeralHomeId: string }>, res: Response) =>
       where: { funeralHomeId: req.params.funeralHomeId },
     });
 
-    res.status(STATUS_CODE.OKAY).json({ user });
+    res.status(STATUS_CODE.OKAY).json({ funeralHome });
   } catch (e: any | unknown) {
     if (e.code === 'P2025') {
       res.sendStatus(STATUS_CODE.NOT_FOUND);

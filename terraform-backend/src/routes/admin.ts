@@ -51,9 +51,9 @@ router.get(
 );
 router.get(
   '/funeral_home/:funeralHomeId',
-  schemaValidator(funeralHomeSchemas.list),
+  schemaValidator(funeralHomeSchemas.get),
   checkPermission([canUseAdminRoutes]),
-  funeral_homeControllers.list,
+  funeral_homeControllers.get,
 );
 router.delete(
   '/funeral_home/:funeralHomeId',
@@ -61,7 +61,7 @@ router.delete(
   checkPermission([canUseAdminRoutes]),
   funeral_homeControllers.remove,
 );
-router.put(
+router.patch(
   '/funeral_home/:funeralHomeId',
   schemaValidator(funeralHomeSchemas.update),
   checkPermission([canUseAdminRoutes]),

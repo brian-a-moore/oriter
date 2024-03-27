@@ -10,7 +10,7 @@ import { Prisma } from '@prisma/client';
 export default async (
   req: Request<
     unknown,
-    Omit<Prisma.FuneralHomeUncheckedCreateInput, 'password' | 'securitQuestionId' | 'securityAnswer'>
+    Omit<Prisma.FuneralHomeUncheckedCreateInput, 'password' | 'securityQuestionId' | 'securityAnswer'>
   >,
   res: Response,
 ) => {
@@ -19,7 +19,7 @@ export default async (
   const password = await hashString(rawPassword);
 
   try {
-    await db.admin.create({
+    await db.funeralHome.create({
       data: {
         ...req.body,
         funeralHomeId,
@@ -46,6 +46,7 @@ export default async (
 
   res.status(STATUS_CODE.OKAY).json({
     message: `Please let ${req.body.firstName} ${req.body.lastName} know to update the password and security question for their funeral home after their first login.`,
+    funeralHomeId,
     tempPassword: rawPassword,
   });
 };
