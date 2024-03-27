@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import schemaValidator from '../middlewares/schemaValidator.middleware';
 import * as schemas from '../schemas/funeralHome';
-import controllers from '../controllers/funeralHome';
+import * as controllers from '../controllers/funeralHome';
 
 const router = Router();
 

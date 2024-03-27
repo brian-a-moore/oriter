@@ -1,10 +1,9 @@
-import { Response } from 'express';
-import { OriterRequest } from '../../types';
-import { STATUS_CODE } from '../../constants';
+import { Response, Request } from 'express';
 import db from '../../config/db';
+import { STATUS_CODE } from '../../constants';
 import logger from '../../utils/logger';
 
-export default async (req: OriterRequest<unknown, { customerId: string; lovedOneId: string }>, res: Response) => {
+export default async (req: Request<unknown, { customerId: string; lovedOneId: string }>, res: Response) => {
   const lovedOneExists = await db.lovedOne.count({
     where: { lovedOneId: req.body.lovedOneId, customerId: req.body.customerId },
   });

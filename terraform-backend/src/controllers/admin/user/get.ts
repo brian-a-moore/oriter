@@ -1,9 +1,8 @@
-import { Response } from 'express';
-import { OriterRequest } from '../../../types';
+import { Response, Request } from 'express';
 import { STATUS_CODE } from '../../../constants';
 import db from '../../../config/db';
 
-export default async (req: OriterRequest<{ adminId: string }>, res: Response) => {
+export default async (req: Request<{ adminId: string }>, res: Response) => {
   try {
     const user = await db.admin.findUniqueOrThrow({
       select: {

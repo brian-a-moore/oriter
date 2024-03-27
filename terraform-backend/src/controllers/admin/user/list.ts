@@ -1,9 +1,8 @@
-import { Response } from 'express';
-import { OriterRequest } from '../../../types';
-import { STATUS_CODE } from '../../../constants';
+import { Response, Request } from 'express';
 import db from '../../../config/db';
+import { STATUS_CODE } from '../../../constants';
 
-export default async (_: OriterRequest, res: Response) => {
+export default async (_: Request, res: Response) => {
   try {
     const users = await db.admin.findMany({
       select: {

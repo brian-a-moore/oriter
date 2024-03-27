@@ -16,7 +16,7 @@
     "db:generate": "dotenv -e .env.local -- npx prisma generate",
     "db:seed": "dotenv -e .env.local -- npx prisma db seed",
     "db:studio": "dotenv -e .env.local -- npx prisma studio",
-    "db:mock": "dotenv -e .env.local -- ts-node ./mocks/index.ts"
+    "db:mock": "dotenv -e .env.local -- ts-node ./src/mocks/index.ts"
   },
   "prisma": {
     "seed": "ts-node --transpile-only ./src/config/db/seed.ts"

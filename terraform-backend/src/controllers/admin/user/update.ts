@@ -1,13 +1,12 @@
-import { Response } from 'express';
-import { OriterRequest } from '../../../types';
-import { STATUS_CODE } from '../../../constants';
-import db from '../../../config/db';
 import { Prisma } from '@prisma/client';
+import { Response, Request } from 'express';
+import db from '../../../config/db';
+import { STATUS_CODE } from '../../../constants';
 import { hashString } from '../../../utils/bcrypt';
 import logger from '../../../utils/logger';
 
 export default async (
-  req: OriterRequest<
+  req: Request<
     { adminId: string },
     {
       firstName?: string;

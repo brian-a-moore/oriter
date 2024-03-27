@@ -1,11 +1,10 @@
-import { NextFunction, Response } from 'express';
+import { NextFunction, Response, Request } from 'express';
 import { ObjectSchema } from 'joi';
 import { STATUS_CODE } from '../constants';
-import { OriterRequest } from '../types';
 import logger from '../utils/logger';
 
 export default (schema: ObjectSchema) => {
-  return async (req: OriterRequest, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { query, body } = await schema.validateAsync({
         query: req.query,

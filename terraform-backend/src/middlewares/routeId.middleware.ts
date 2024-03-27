@@ -1,7 +1,6 @@
-import { NextFunction, Response } from 'express';
-import { OriterRequest } from '../types';
+import { NextFunction, Response, Request } from 'express';
 
-export default (req: OriterRequest, _: Response, next: NextFunction) => {
-  req.routeId = req.method.replace(/\//g, '-').toLowerCase() + req.originalUrl.replace(/[_/]/g, '-')
+export default (req: Request, _: Response, next: NextFunction) => {
+  req.routeId = req.method.replace(/\//g, '-').toLowerCase() + req.originalUrl.replace(/[_/]/g, '-');
   next();
 };

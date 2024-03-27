@@ -1,11 +1,4 @@
-import create from './create';
-import get from './get';
-import remove from './remove';
-import list from './list';
-
-export default {
-  create,
-  get,
-  remove,
-  list,
-};
+export { default as create } from './create';
+export { default as get } from './get';
+export { default as remove } from './remove';
+export { default as list } from './list';

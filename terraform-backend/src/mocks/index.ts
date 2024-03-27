@@ -1,6 +1,6 @@
-import db from '../src/config/db';
+import db from '../config/db';
 import { v4 as uuid } from 'uuid';
-import { hashString } from '../src/utils/bcrypt';
+import { hashString } from '../utils/bcrypt';
 
 const main = async () => {
   console.log('Mocking Database...');

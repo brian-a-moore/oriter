@@ -1,7 +1,2 @@
-import get from './get';
-import update from './update';
-
-export default {
-  get,
-  update,
-};
+export { default as get } from './get';
+export { default as update } from './update';

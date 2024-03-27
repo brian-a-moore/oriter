@@ -1,11 +1,4 @@
-import login from './login';
-import updatePassword from './updatePassword';
-import verifyLink from './verifyLink';
-import verifyToken from './verifyToken';
-
-export default {
-  login,
-  updatePassword,
-  verifyLink,
-  verifyToken,
-};
+export { default as login } from './login';
+export { default as updatePassword } from './updatePassword';
+export { default as verifyLink } from './verifyLink';
+export { default as verifyToken } from './verifyToken';

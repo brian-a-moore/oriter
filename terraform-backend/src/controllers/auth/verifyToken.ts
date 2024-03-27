@@ -1,10 +1,9 @@
-import { Response } from 'express';
-import { OriterRequest } from '../../types';
+import { Response, Request } from 'express';
 import { STATUS_CODE } from '../../constants';
 import { createToken, verifyToken } from '../../utils/jwt';
 import logger from '../../utils/logger';
 
-export default async (req: OriterRequest<unknown, { token: string }>, res: Response) => {
+export default async (req: Request<unknown, { token: string }>, res: Response) => {
   try {
     const { id, isAdmin } = await verifyToken(req.body.token);
 

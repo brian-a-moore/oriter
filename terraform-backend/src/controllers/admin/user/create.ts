@@ -1,14 +1,13 @@
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { v4 as uuid } from 'uuid';
-import { OriterRequest } from '../../../types';
+import db from '../../../config/db';
 import { STATUS_CODE } from '../../../constants';
 import { hashString } from '../../../utils/bcrypt';
-import db from '../../../config/db';
 import logger from '../../../utils/logger';
 import pw from '../../../utils/password';
 
 export default async (
-  req: OriterRequest<
+  req: Request<
     unknown,
     {
       firstName: string;

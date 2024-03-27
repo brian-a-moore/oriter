@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import schemaValidator from '../middlewares/schemaValidator.middleware';
 import * as schemas from '../schemas/lovedOne';
-import controllers from '../controllers/lovedOne';
+import * as controllers from '../controllers/lovedOne';
 
 const router = Router();
 

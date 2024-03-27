@@ -1,12 +1,12 @@
 import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
-import routes from './routes';
 import { ENV_TYPE } from './constants';
 import authorizationMiddleware from './middlewares/authorization.middleware';
 import errorHandlingMiddleware from './middlewares/errorHandling.middleware';
 import permissionMiddleware from './middlewares/permission.middleware';
 import routeIdMiddleware from './middlewares/routeId.middleware';
+import routes from './routes';
 
 const { APP_ENV } = process.env;
 

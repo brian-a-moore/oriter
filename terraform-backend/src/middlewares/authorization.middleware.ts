@@ -1,15 +1,14 @@
-import { NextFunction, Response } from 'express';
-import { verifyToken } from '../utils/jwt';
-import { STATUS_CODE } from '../constants';
+import { NextFunction, Response, Request } from 'express';
 import db from '../config/db';
-import { OriterRequest } from '../types';
+import { STATUS_CODE } from '../constants';
+import { verifyToken } from '../utils/jwt';
 import logger from '../utils/logger';
 
-export default async (req: OriterRequest, res: Response, next: NextFunction) => {
+export default async (req: Request, res: Response, next: NextFunction) => {
   const authorization = req.headers.authorization;
 
   try {
-    if (req.routeId!.includes('-auth')) {
+    if (req.routeId?.includes('-auth')) {
       logger.debug({ message: 'AUTHORIZATION MIDDLEWARE: Bypassed', data: { routeId: req.routeId } });
       next();
     } else if (!authorization) {

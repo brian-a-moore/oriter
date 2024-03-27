@@ -1,14 +1,13 @@
-import { Response } from 'express';
-import { OriterRequest } from '../../types';
-import { STATUS_CODE } from '../../constants';
+import { Admin, FuneralHome } from '@prisma/client';
+import { Response, Request } from 'express';
 import db from '../../config/db';
+import { STATUS_CODE } from '../../constants';
 import logger from '../../utils/logger';
 import { compareStrings, hashString } from '../../utils/bcrypt';
 import { createToken } from '../../utils/jwt';
-import { Admin, FuneralHome } from '@prisma/client';
 
 export default async (
-  req: OriterRequest<
+  req: Request<
     unknown,
     {
       email: string;

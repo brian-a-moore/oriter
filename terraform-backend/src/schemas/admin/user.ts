@@ -24,7 +24,7 @@ export const list = OBJECT({
 
 export const remove = OBJECT({
   params: OBJECT({
-    userId: RESOURCE_ID.required(),
+    adminId: RESOURCE_ID.required(),
   }),
   body: EMPTY_OBJECT,
 });

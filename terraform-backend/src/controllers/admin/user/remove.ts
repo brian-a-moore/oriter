@@ -1,10 +1,9 @@
-import { Response } from 'express';
-import { OriterRequest } from '../../../types';
-import { STATUS_CODE } from '../../../constants';
+import { Response, Request } from 'express';
 import db from '../../../config/db';
+import { STATUS_CODE } from '../../../constants';
 import logger from '../../../utils/logger';
 
-export default async (req: OriterRequest<{ adminId: string }>, res: Response) => {
+export default async (req: Request<{ adminId: string }>, res: Response) => {
   try {
     const deletedRecord = await db.admin.delete({ where: { adminId: req.params.adminId } });
 
