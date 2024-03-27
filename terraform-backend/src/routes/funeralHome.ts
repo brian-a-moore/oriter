@@ -7,7 +7,12 @@ import canAccessFuneralHome from '../permissions/canAccessFuneralHome';
 
 const router = Router();
 
-router.get('/', schemaValidator(schemas.get), checkPermission([canAccessFuneralHome]), controllers.get);
-router.put('/', schemaValidator(schemas.update), checkPermission([canAccessFuneralHome]), controllers.update);
+router.get('/:funeralHomeId', schemaValidator(schemas.get), checkPermission([canAccessFuneralHome]), controllers.get);
+router.patch(
+  '/:funeralHomeId',
+  schemaValidator(schemas.update),
+  checkPermission([canAccessFuneralHome]),
+  controllers.update,
+);
 
 export default router;
