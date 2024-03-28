@@ -171,7 +171,7 @@ resource "aws_lambda_permission" "apigw" {
 resource "aws_lambda_function" "migrations_lambda" {
   function_name    = "migrations_lambda"
   handler          = "index.handler"
-  runtime          = "nodejs14.x"
+  runtime          = "nodejs18.x"
   role             = aws_iam_role.lambda_role.arn
   s3_bucket        = aws_s3_bucket.oriter_oriter_migrations.bucket
   s3_key           = "oriter_migrations.zip"
