@@ -11,7 +11,8 @@
     "@types/node": "^20.11.30"
   },
   "dependencies": {
-    "aws-lambda": "^1.0.7"
+    "aws-lambda": "^1.0.7",
+    "prisma": "^5.11.0"
   },
   "keywords": [],
   "author": "",
