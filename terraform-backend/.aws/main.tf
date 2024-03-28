@@ -79,7 +79,7 @@ resource "aws_s3_bucket" "oriter_migrations_code" {
 resource "aws_s3_bucket_object" "object" {
   bucket     = "oriter-api-code"
   key        = "oriter_api.zip"
-  source     = "../oriter_api.zip"
+  source     = "../functions/api/oriter_api.zip"
   etag       = filemd5("../oriter_api.zip")
   depends_on = [aws_s3_bucket.oriter_api_code]
 }
@@ -87,7 +87,7 @@ resource "aws_s3_bucket_object" "object" {
 resource "aws_s3_bucket_object" "object" {
   bucket     = "oriter-migrations-code"
   key        = "oriter_migrations.zip"
-  source     = "../oriter_migrations.zip"
+  source     = "../functions/migrations/oriter_migrations.zip"
   etag       = filemd5("../oriter_migrations.zip")
   depends_on = [aws_s3_bucket.oriter_migrations_code]
 }
