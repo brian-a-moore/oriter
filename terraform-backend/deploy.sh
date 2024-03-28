@@ -15,6 +15,6 @@ cd ../functions/api && rm -rf dist oriter_api.zip
 cd ../migrations && rm -rf dist prisma oriter_migrations.zip
 
 echo "Running migrations..."
-aws lambda invoke --function-name migrations_lambda
+aws lambda invoke --function-name migrations_lambda outputfile.txt
 
 echo "Deploy COMPLETE"

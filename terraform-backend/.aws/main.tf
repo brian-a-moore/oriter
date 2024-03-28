@@ -71,25 +71,25 @@ resource "aws_s3_bucket" "oriter_api_code" {
   acl    = "private"
 }
 
-resource "aws_s3_bucket" "oriter_migrations_code" {
+resource "aws_s3_bucket" "oriter_oriter_migrations" {
   bucket = "oriter-migrations-code"
   acl    = "private"
 }
 
-resource "aws_s3_bucket_object" "object" {
+resource "aws_s3_bucket_object" "oriter_api_object" {
   bucket     = "oriter-api-code"
   key        = "oriter_api.zip"
   source     = "../functions/api/oriter_api.zip"
-  etag       = filemd5("../oriter_api.zip")
+  etag       = filemd5("../functions/api/oriter_api.zip")
   depends_on = [aws_s3_bucket.oriter_api_code]
 }
 
-resource "aws_s3_bucket_object" "object" {
+resource "aws_s3_bucket_object" "oriter_migrations_object" {
   bucket     = "oriter-migrations-code"
   key        = "oriter_migrations.zip"
   source     = "../functions/migrations/oriter_migrations.zip"
-  etag       = filemd5("../oriter_migrations.zip")
-  depends_on = [aws_s3_bucket.oriter_migrations_code]
+  etag       = filemd5("../functions/migrations/oriter_migrations.zip")
+  depends_on = [aws_s3_bucket.oriter_oriter_migrations]
 }
 
 # IAM
@@ -142,9 +142,9 @@ resource "aws_lambda_function" "oriter_api" {
   handler          = "index.handler"
   runtime          = "nodejs18.x"
   role             = aws_iam_role.lambda_role.arn
-  s3_bucket        = aws_s3_bucket.oriter_lambda_code.bucket
+  s3_bucket        = aws_s3_bucket.oriter_api_code.bucket
   s3_key           = "oriter_api.zip"
-  source_code_hash = filebase64sha256("../oriter_api.zip")
+  source_code_hash = filebase64sha256("../functions/api/oriter_api.zip")
 
   environment {
     variables = {
@@ -156,7 +156,7 @@ resource "aws_lambda_function" "oriter_api" {
     }
   }
 
-  depends_on = [aws_s3_bucket_object.object]
+  depends_on = [aws_s3_bucket_object.oriter_api_object]
 }
 
 resource "aws_lambda_permission" "apigw" {
@@ -172,10 +172,10 @@ resource "aws_lambda_function" "migrations_lambda" {
   function_name    = "migrations_lambda"
   handler          = "index.handler"
   runtime          = "nodejs14.x"
-  role             = aws_iam_role.lambda_access.arn
-  s3_bucket        = aws_s3_bucket.oriter_lambda_code.bucket
-  s3_key           = "migrations_code.zip"
-  source_code_hash = filebase64sha256("../migrations_code.zip")
+  role             = aws_iam_role.lambda_role.arn
+  s3_bucket        = aws_s3_bucket.oriter_oriter_migrations.bucket
+  s3_key           = "oriter_migrations.zip"
+  source_code_hash = filebase64sha256("../functions/migrations/oriter_migrations.zip")
 
   environment {
     variables = {
@@ -183,7 +183,7 @@ resource "aws_lambda_function" "migrations_lambda" {
     }
   }
 
-  depends_on = [aws_s3_bucket_object.object]
+  depends_on = [aws_s3_bucket_object.oriter_migrations_object]
 }
 
 # API Gateway
