@@ -11,3 +11,4 @@ package-lock.json
 .aws-sam
 .env
 .env.local
+outputfile.txt
