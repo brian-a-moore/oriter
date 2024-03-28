@@ -19,7 +19,7 @@ export default async (
       where: { funeralHomeId: req.params.funeralHomeId },
     });
 
-    res.sendStatus(STATUS_CODE.OKAY);
+    res.status(STATUS_CODE.OKAY).json({});
   } catch (e: any | unknown) {
     logger.error({
       message: 'Unable to update funeral home',
@@ -33,6 +33,6 @@ export default async (
       return;
     }
 
-    res.sendStatus(STATUS_CODE.SERVER_ERROR);
+    res.status(STATUS_CODE.SERVER_ERROR).json({});
   }
 };

@@ -29,7 +29,7 @@ router.delete(
   checkPermission([canUseAdminRoutes, canDeleteAdmin]),
   userControllers.remove,
 );
-router.patch(
+router.put(
   '/:adminId',
   schemaValidator(adminUserSchemas.update),
   checkPermission([canUseAdminRoutes, canUpdateAdmin]),
@@ -61,7 +61,7 @@ router.delete(
   checkPermission([canUseAdminRoutes]),
   funeral_homeControllers.remove,
 );
-router.patch(
+router.put(
   '/funeral_home/:funeralHomeId',
   schemaValidator(funeralHomeSchemas.update),
   checkPermission([canUseAdminRoutes]),

@@ -8,7 +8,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
   const authorization = req.headers.authorization;
 
   try {
-    if (req.routeId?.includes('-auth') || req.routeId?.includes('patch-loved-one')) {
+    if (req.routeId?.includes('-auth') || req.routeId?.includes('put-loved-one')) {
       logger.debug({ message: 'AUTHORIZATION MIDDLEWARE: Bypassed', data: { routeId: req.routeId } });
       next();
     } else if (!authorization) {
@@ -53,6 +53,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
       error: e.message,
       data: { routeId: req.routeId },
     });
-    res.sendStatus(STATUS_CODE.NO_AUTH);
+    res.status(STATUS_CODE.NO_AUTH).json({});
   }
 };

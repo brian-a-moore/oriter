@@ -24,6 +24,6 @@ export default async (req: Request<{ funeralHomeId: string }>, res: Response) =>
       data: { routeId: req.routeId },
     });
 
-    res.sendStatus(STATUS_CODE.SERVER_ERROR);
+    res.status(STATUS_CODE.SERVER_ERROR).json({});
   }
 };

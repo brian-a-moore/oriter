@@ -7,7 +7,7 @@ export default async (req: Request<{ lovedOneId: string }>, res: Response) => {
   try {
     await db.lovedOne.delete({ where: { lovedOneId: req.params.lovedOneId, funeralHomeId: req.user?.id } });
 
-    res.sendStatus(STATUS_CODE.OKAY);
+    res.status(STATUS_CODE.OKAY).json({});
   } catch (e: any | unknown) {
     logger.error({
       message: 'Unable to delete loved one',
@@ -16,11 +16,11 @@ export default async (req: Request<{ lovedOneId: string }>, res: Response) => {
     });
 
     if (e.code === 'P2025') {
-      res.sendStatus(STATUS_CODE.NOT_FOUND);
+      res.status(STATUS_CODE.NOT_FOUND).json({});
 
       return;
     }
 
-    res.sendStatus(STATUS_CODE.SERVER_ERROR);
+    res.status(STATUS_CODE.SERVER_ERROR).json({});
   }
 };

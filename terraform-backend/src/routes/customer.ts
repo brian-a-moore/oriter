@@ -17,6 +17,6 @@ router.delete(
   checkPermission([canAccessCustomer]),
   controllers.remove,
 );
-router.patch('/:customerId', schemaValidator(schemas.update), checkPermission([canAccessCustomer]), controllers.update);
+router.put('/:customerId', schemaValidator(schemas.update), checkPermission([canAccessCustomer]), controllers.update);
 
 export default router;

@@ -26,7 +26,7 @@ export default (schema: ObjectSchema) => {
         error: e.message,
         data: { routeId: req.routeId },
       });
-      res.sendStatus(STATUS_CODE.BAD_INPUT);
+      res.status(STATUS_CODE.BAD_INPUT).json({});
     }
   };
 };

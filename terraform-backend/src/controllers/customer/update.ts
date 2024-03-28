@@ -24,7 +24,7 @@ export default async (
       where: { customerId: req.params.customerId, funeralHomeId: req.user?.id },
     });
 
-    res.sendStatus(STATUS_CODE.OKAY);
+    res.status(STATUS_CODE.OKAY).json({});
   } catch (e: any | unknown) {
     logger.error({
       message: 'Unable to update customer',
@@ -38,6 +38,6 @@ export default async (
       return;
     }
 
-    res.sendStatus(STATUS_CODE.SERVER_ERROR);
+    res.status(STATUS_CODE.SERVER_ERROR).json({});
   }
 };

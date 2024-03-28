@@ -17,7 +17,7 @@ router.delete(
 );
 
 // This is the unauthenticated public route
-router.patch(
+router.put(
   '/:funeralHomeId/:customerId/:lovedOneId',
   checkPermission([canSubmitForm]),
   schemaValidator(schemas.update),

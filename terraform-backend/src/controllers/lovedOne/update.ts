@@ -20,7 +20,7 @@ export default async (
       },
     });
 
-    res.sendStatus(STATUS_CODE.OKAY);
+    res.status(STATUS_CODE.OKAY).json({});
   } catch (e: any | unknown) {
     logger.error({
       message: 'Unable to submit form',
@@ -28,6 +28,6 @@ export default async (
       data: { customerId: req.params.customerId, update },
     });
 
-    res.sendStatus(STATUS_CODE.SERVER_ERROR);
+    res.status(STATUS_CODE.SERVER_ERROR).json({});
   }
 };

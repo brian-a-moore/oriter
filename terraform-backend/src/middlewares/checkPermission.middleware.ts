@@ -21,7 +21,7 @@ export default (permissionChecks: ((req: Request) => Promise<string | false>)[])
         },
       });
 
-      res.sendStatus(STATUS_CODE.NO_PERM);
+      res.status(STATUS_CODE.NO_PERM).json({});
     }
   };
 };

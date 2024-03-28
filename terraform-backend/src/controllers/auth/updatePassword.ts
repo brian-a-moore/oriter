@@ -44,12 +44,12 @@ export default async (
     });
 
     if (e.code === 'P2025') {
-      res.sendStatus(STATUS_CODE.NOT_FOUND);
+      res.status(STATUS_CODE.NOT_FOUND).json({});
 
       return;
     }
 
-    res.sendStatus(STATUS_CODE.SERVER_ERROR);
+    res.status(STATUS_CODE.SERVER_ERROR).json({});
 
     return;
   }
@@ -60,7 +60,7 @@ export default async (
       data: { routeId: req.routeId },
     });
 
-    res.sendStatus(STATUS_CODE.BAD_INPUT).json({
+    res.status(STATUS_CODE.BAD_INPUT).json({
       message: 'User has not setup security question',
     });
 
@@ -79,7 +79,7 @@ export default async (
       data: { routeId: req.routeId },
     });
 
-    res.sendStatus(STATUS_CODE.SERVER_ERROR);
+    res.status(STATUS_CODE.SERVER_ERROR).json({});
 
     return;
   }
@@ -96,7 +96,7 @@ export default async (
         data: { routeId: req.routeId },
       });
 
-      res.sendStatus(STATUS_CODE.SERVER_ERROR);
+      res.status(STATUS_CODE.SERVER_ERROR).json({});
 
       return;
     }
@@ -124,7 +124,7 @@ export default async (
         data: { routeId: req.routeId },
       });
 
-      res.sendStatus(STATUS_CODE.SERVER_ERROR);
+      res.status(STATUS_CODE.SERVER_ERROR).json({});
 
       return;
     }
@@ -141,7 +141,7 @@ export default async (
         data: { routeId: req.routeId },
       });
 
-      res.sendStatus(STATUS_CODE.SERVER_ERROR);
+      res.status(STATUS_CODE.SERVER_ERROR).json({});
 
       return;
     }
@@ -156,5 +156,5 @@ export default async (
     data: { routeId: req.routeId },
   });
 
-  res.sendStatus(STATUS_CODE.BAD_INPUT).json({ message: 'Security question answer is incorrect' });
+  res.status(STATUS_CODE.BAD_INPUT).json({ message: 'Security question answer is incorrect' });
 };

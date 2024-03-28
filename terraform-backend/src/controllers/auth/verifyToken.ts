@@ -20,6 +20,6 @@ export default async (req: Request<unknown, { token: string }>, res: Response) =
       data: { routeId: req.routeId },
     });
 
-    res.sendStatus(STATUS_CODE.NO_AUTH);
+    res.status(STATUS_CODE.NO_AUTH).json({});
   }
 };

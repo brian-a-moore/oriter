@@ -12,7 +12,7 @@ export default async (
   });
 
   if (lovedOneExists) {
-    res.sendStatus(STATUS_CODE.OKAY);
+    res.status(STATUS_CODE.OKAY).json({});
   } else {
     logger.error({
       message: 'No record found',
@@ -20,6 +20,6 @@ export default async (
       data: { routeId: req.routeId },
     });
 
-    res.sendStatus(STATUS_CODE.NOT_FOUND);
+    res.status(STATUS_CODE.NOT_FOUND).json({});
   }
 };

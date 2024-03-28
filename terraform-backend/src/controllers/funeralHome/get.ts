@@ -32,11 +32,11 @@ export default async (req: Request<{ funeralHomeId: string }>, res: Response) =>
     });
 
     if (e.code === 'P2025') {
-      res.sendStatus(STATUS_CODE.NOT_FOUND);
+      res.status(STATUS_CODE.NOT_FOUND).json({});
 
       return;
     }
 
-    res.sendStatus(STATUS_CODE.SERVER_ERROR);
+    res.status(STATUS_CODE.SERVER_ERROR).json({});
   }
 };
