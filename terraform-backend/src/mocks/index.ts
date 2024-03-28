@@ -7,17 +7,14 @@ const main = async () => {
   console.log('Creating Admin User...');
 
   const password = await hashString('Password1!');
-  const securityAnswer = await hashString('Smith');
 
   await db.admin.create({
     data: {
       adminId: uuid(),
-      firstName: 'First',
-      lastName: 'Last',
-      email: 'first@last.com',
+      firstName: 'Ryan',
+      lastName: 'Urquhart',
+      email: 'ryan@oriter.com',
       password,
-      securityQuestionId: 1,
-      securityAnswer,
     },
   });
 
