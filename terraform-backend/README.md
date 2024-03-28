@@ -23,7 +23,13 @@ This is the backend infrastructure and code for Oriter.
 
 ## Deploying
 
+Setup scripts:
 - `chmod +x deploy.sh`
+- `chmod +x cleanup.sh`
+
+Run scripts:
+- `./deploy.sh` to deploy to AWS
+- `./cleanup.sh` to cleanup artifacts if a deploy fails partway through
 
 ## Prisma
 
