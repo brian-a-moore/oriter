@@ -1,0 +1,18 @@
+{
+  "name": "oriter-migrations",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --build && cp package.json dist/ && mkdir dist/node_modules && npm install --omit=dev --prefix dist && cd dist && zip -r ../oriter_migrations.zip ."
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.134"
+  },
+  "dependencies": {
+    "aws-lambda": "^1.0.7"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

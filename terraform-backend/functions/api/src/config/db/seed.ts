@@ -1,4 +1,4 @@
-import db from '../db';
+import db from '.';
 import securityQuestions from './seeds/securityQuestions';
 
 (async () => {

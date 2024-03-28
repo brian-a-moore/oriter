@@ -66,17 +66,30 @@ resource "aws_s3_bucket" "oriter_customer_images" {
   acl    = "private"
 }
 
-resource "aws_s3_bucket" "oriter_lambda_code" {
-  bucket = "oriter-lambda-code"
+resource "aws_s3_bucket" "oriter_api_code" {
+  bucket = "oriter-api-code"
+  acl    = "private"
+}
+
+resource "aws_s3_bucket" "oriter_migrations_code" {
+  bucket = "oriter-migrations-code"
   acl    = "private"
 }
 
 resource "aws_s3_bucket_object" "object" {
-  bucket     = "oriter-lambda-code"
-  key        = "oriter_code.zip"
-  source     = "../oriter_code.zip"
-  etag       = filemd5("../oriter_code.zip")
-  depends_on = [aws_s3_bucket.oriter_lambda_code]
+  bucket     = "oriter-api-code"
+  key        = "oriter_api.zip"
+  source     = "../oriter_api.zip"
+  etag       = filemd5("../oriter_api.zip")
+  depends_on = [aws_s3_bucket.oriter_api_code]
+}
+
+resource "aws_s3_bucket_object" "object" {
+  bucket     = "oriter-migrations-code"
+  key        = "oriter_migrations.zip"
+  source     = "../oriter_migrations.zip"
+  etag       = filemd5("../oriter_migrations.zip")
+  depends_on = [aws_s3_bucket.oriter_migrations_code]
 }
 
 # IAM
@@ -130,8 +143,8 @@ resource "aws_lambda_function" "oriter_api" {
   runtime          = "nodejs18.x"
   role             = aws_iam_role.lambda_role.arn
   s3_bucket        = aws_s3_bucket.oriter_lambda_code.bucket
-  s3_key           = "oriter_code.zip"
-  source_code_hash = filebase64sha256("../oriter_code.zip")
+  s3_key           = "oriter_api.zip"
+  source_code_hash = filebase64sha256("../oriter_api.zip")
 
   environment {
     variables = {
@@ -153,6 +166,24 @@ resource "aws_lambda_permission" "apigw" {
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*"
+}
+
+resource "aws_lambda_function" "migrations_lambda" {
+  function_name    = "migrations_lambda"
+  handler          = "index.handler"
+  runtime          = "nodejs14.x"
+  role             = aws_iam_role.lambda_access.arn
+  s3_bucket        = aws_s3_bucket.oriter_lambda_code.bucket
+  s3_key           = "migrations_code.zip"
+  source_code_hash = filebase64sha256("../migrations_code.zip")
+
+  environment {
+    variables = {
+      DATABASE_URL = "postgresql://${aws_db_instance.oriter_database.username}:${aws_secretsmanager_secret_version.db_password.secret_string}@${aws_db_instance.oriter_database.address}:5432/${aws_db_instance.oriter_database.identifier}"
+    }
+  }
+
+  depends_on = [aws_s3_bucket_object.object]
 }
 
 # API Gateway
