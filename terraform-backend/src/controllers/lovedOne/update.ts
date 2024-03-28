@@ -38,7 +38,7 @@ export default async (
     });
 
     try {
-      await imageHandler(parsedData.files);
+      await imageHandler(parsedData.files, req.params.lovedOneId);
     } catch (e: any | unknown) {
       logger.error({
         message: 'Unable to handle image upload -- Rolling back db update',
