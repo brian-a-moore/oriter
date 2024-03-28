@@ -36,13 +36,26 @@ export default async (
         funeralHomeId: req.params.funeralHomeId,
       },
     });
+
     try {
       await imageHandler(parsedData.files);
     } catch (e: any | unknown) {
       logger.error({
-        message: 'Unable to save images',
+        message: 'Unable to handle image upload -- Rolling back db update',
         error: e.message,
         data: { customerId: req.params.customerId, lovedOneId: req.params.lovedOneId },
+      });
+
+      await db.lovedOne.update({
+        data: {
+          bio: undefined,
+          education: undefined,
+          employment: undefined,
+          family: undefined,
+          info: undefined,
+          service: undefined,
+        },
+        where: { lovedOneId: req.params.lovedOneId },
       });
 
       res.status(STATUS_CODE.SERVER_ERROR).json({});
