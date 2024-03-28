@@ -129,7 +129,7 @@ resource "aws_iam_role_policy" "lambda_access" {
         Resource = [
           "arn:aws:rds:us-east-1:${data.aws_caller_identity.current.account_id}:db:${aws_db_instance.oriter_database.identifier}",
           aws_s3_bucket.oriter_customer_images.arn,
-        ]     
+        ]
         Effect = "Allow"
       },
     ]
@@ -148,11 +148,11 @@ resource "aws_lambda_function" "oriter_api" {
 
   environment {
     variables = {
-      JWT_SECRET = aws_secretsmanager_secret_version.jwt_secret.secret_string
+      JWT_SECRET  = aws_secretsmanager_secret_version.jwt_secret.secret_string
       DB_PASSWORD = aws_secretsmanager_secret_version.db_password.secret_string
-      DB_HOST = aws_db_instance.oriter_database.address
-      DB_USER = aws_db_instance.oriter_database.username
-      DB_NAME = aws_db_instance.oriter_database.identifier
+      DB_HOST     = aws_db_instance.oriter_database.address
+      DB_USER     = aws_db_instance.oriter_database.username
+      DB_NAME     = aws_db_instance.oriter_database.identifier
     }
   }
 
@@ -176,6 +176,7 @@ resource "aws_lambda_function" "migrations_lambda" {
   s3_bucket        = aws_s3_bucket.oriter_oriter_migrations.bucket
   s3_key           = "oriter_migrations.zip"
   source_code_hash = filebase64sha256("../functions/migrations/oriter_migrations.zip")
+  timeout          = 15
 
   environment {
     variables = {
